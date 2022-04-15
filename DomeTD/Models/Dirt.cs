@@ -12,7 +12,7 @@ namespace DomeTD.Models
         {
             get 
             { 
-                return "Dirt"; 
+                return "dirt"; 
             }
         }            
 
