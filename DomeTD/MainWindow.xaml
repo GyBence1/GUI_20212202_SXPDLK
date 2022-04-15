@@ -5,8 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DomeTD"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        FontFamily="/Fonts/#Bubblegum"
+        Title="MainWindow" Height="450" Width="800" WindowState="Maximized" WindowStyle="None">
     <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Images/menubg.jpg"/>
+        </Grid.Background>
 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Label Content="Dome TD" Foreground="#FF09F385"  FontSize="100" Grid.Row="0" HorizontalAlignment="Center"/>
+        <Button FontSize="25" BorderThickness="0" Foreground="#FF0019FF" HorizontalAlignment="Center" Background="Transparent" Padding="10" Width="230" Click="NewGame_Click" Grid.Row="1" Content="Start new game" Height="50" />
+        <Button FontSize="25" BorderThickness="0" Foreground="#FF0019FF" HorizontalAlignment="Center" Background="Transparent" Padding="10" Width="180" Click="HowTo_Click" Grid.Row="2" Content="How To Play" Height="50"/>
+        <Button FontSize="25" BorderThickness="0" Foreground="#FF0019FF" HorizontalAlignment="Center" Background="Transparent" Padding="10" Width="150" Click="Exit_Click" Grid.Row="3" Content="Exit Game" Height="50" />
     </Grid>
 </Window>

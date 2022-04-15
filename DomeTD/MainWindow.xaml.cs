@@ -20,9 +20,37 @@ namespace DomeTD
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MediaPlayer player = new MediaPlayer();
         public MainWindow()
         {
             InitializeComponent();
+            player.Open(new Uri(string.Format("{0}\\bgmusic.mp3", AppDomain.CurrentDomain.BaseDirectory)));
+            player.MediaEnded+=Player_MediaEnded;
+            player.Volume=0.20;
+            player.Play();
+
+        }
+
+        private void Player_MediaEnded(object? sender, EventArgs e)
+        {
+            player.Play();
+        }
+
+        private void NewGame_Click(object sender, RoutedEventArgs e)
+        {
+            new GameWindow().Show();
+            player.Stop();
+            this.Close();
+
+        }
+
+        private void HowTo_Click(object sender, RoutedEventArgs e)
+        {
+            new HowToWindow().ShowDialog();
+        }
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }
