@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DomeTD.Models
 {
-    public class Border:IGameModel
+    public class Border:IGameItem
     {
         private string type;
 

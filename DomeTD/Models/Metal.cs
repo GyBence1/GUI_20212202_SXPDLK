@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DomeTD.Models
 {
-    public class Metal : IGameModel
+    public class Metal : IGameItem
     {
         private string type;
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DomeTD.Models
 {
-    public interface IGameModel
+    public interface IGameItem
     {
 
          string Type { get; set; }

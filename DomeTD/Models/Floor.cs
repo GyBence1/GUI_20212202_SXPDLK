@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DomeTD.Models
 {
-    public class Floor : IGameModel //Ezen tud sétálni a karakter, ha kiütsz egy blokkot akkor floorrá válik.
+    public class Floor : IGameItem //Ezen tud sétálni a karakter, ha kiütsz egy blokkot akkor floorrá válik.
     {
         private string type;
 

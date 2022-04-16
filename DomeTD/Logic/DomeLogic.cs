@@ -8,13 +8,18 @@ using System.Threading.Tasks;
 
 namespace DomeTD.Logic
 {
-    public class DomeLogic
+    public interface IGameModel
+    {
+        IGameItem[,] GameMatrix { get; set; }
+    }
+
+    public class DomeLogic:IGameModel,IGameControl
     {
         public enum Directions
         {
             up, down, left, right
         }
-        public IGameModel[,] GameMatrix { get; set; }
+        public IGameItem[,] GameMatrix { get; set; }
         private Queue<string> levels;
 
         public DomeLogic()
@@ -31,7 +36,7 @@ namespace DomeTD.Logic
         private void LoadNext(string path)
         {
             string[] lines = File.ReadAllLines(path);
-            GameMatrix = new IGameModel[11,100];
+            GameMatrix = new IGameItem[30,50];
             for (int i = 0; i < GameMatrix.GetLength(0); i++)
             {
                 for (int j = 0; j < GameMatrix.GetLength(1); j++)
@@ -41,7 +46,7 @@ namespace DomeTD.Logic
             }
 
         }
-        public IGameModel lvlConvert(char v)
+        public IGameItem lvlConvert(char v)
         {
             switch (v)
             {
@@ -50,6 +55,7 @@ namespace DomeTD.Logic
                 case 'f': return new Floor();
                 case 'm': return new Metal();
                 case 'v': return new Vibranium();
+                case 'k': return new BGround();
                 default: return null;
             }
         }
@@ -68,7 +74,9 @@ namespace DomeTD.Logic
             return new int[] { -1, -1 };
         }
 
-
-
+        public void Move(Directions direction)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

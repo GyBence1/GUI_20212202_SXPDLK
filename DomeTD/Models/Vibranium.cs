@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DomeTD.Models
 {
-    public class Vibranium : IGameModel
+    public class Vibranium : IGameItem
     {
         private string type;
 

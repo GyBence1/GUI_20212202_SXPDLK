@@ -6,25 +6,15 @@ using System.Threading.Tasks;
 
 namespace DomeTD.Models
 {
-    public class Dirt : IGameItem
+    public class BGround : IGameItem
     {
         private string type;
 
         public string Type
         {
-            get { return "Dirt"; }
+            get { return "Background"; }
             set { type = value; }
         }
 
-
-        public double Thoughness
-        {
-            get
-            {
-                return 1;
-            }
-        }
-
-        
     }
 }

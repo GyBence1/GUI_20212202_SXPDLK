@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DomeTD.Models
 {
-    public class Weapon : ObservableObject,IGameModel
+    public class Weapon : ObservableObject,IGameItem
     {
         private double attackDamage;
 

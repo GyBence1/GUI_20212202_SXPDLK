@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DomeTD.Models
 {
-    public class MainCharacter : ObservableObject,IGameModel
+    public class MainCharacter : ObservableObject,IGameItem
     {
         private string type;
 
