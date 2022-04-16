@@ -34,6 +34,22 @@ namespace DomeTD.Controller
                     control.Move(DomeLogic.Directions.right);
                     break;
             }
+            switch (key)
+            {
+                case Key.Up:
+                    control.Dig(DomeLogic.Directions.up);
+                    break;
+                case Key.Down:
+                    control.Dig(DomeLogic.Directions.down);
+                    break;
+                case Key.Left:
+                    control.Dig(DomeLogic.Directions.left);
+                    break;
+                case Key.Right:
+                    control.Dig(DomeLogic.Directions.right);
+                    break;
+            }
+        }
         }
     }
-}
+

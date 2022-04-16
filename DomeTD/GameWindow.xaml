@@ -11,6 +11,7 @@
         <ImageBrush ImageSource="/Images/gamebg.jpg"/>
     </Window.Background>
     <Grid x:Name="grid">
+        <Label x:Name="dirt"/>
         <renderer:Display x:Name="display"/>
     </Grid>
 </Window>

@@ -13,8 +13,9 @@ namespace DomeTD.Logic
         IGameItem[,] GameMatrix { get; set; }
     }
 
-    public class DomeLogic:IGameModel,IGameControl
+    public class DomeLogic:IGameModel, IGameControl
     {
+        public Inventory Inventory { get; set; }
         public enum Directions
         {
             up, down, left, right
@@ -24,6 +25,7 @@ namespace DomeTD.Logic
 
         public DomeLogic()
         {
+            Inventory = new Inventory();
             levels = new Queue<string>();
             var lvls = Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "Levels"),
                 "*.lvl");
@@ -118,6 +120,79 @@ namespace DomeTD.Logic
                 GameMatrix[old_i, old_j] = new Floor();
             }
         }
-
+        public void Dig(Directions direction)
+        {
+            var coords = WhereAmI();
+            int i = coords[0];
+            int j = coords[1];
+            switch (direction)
+            {
+                case Directions.up:
+                    if (GameMatrix[i-1, j].Type !="Border")
+                    {
+                        i--;
+                        if (GameMatrix[i, j].Type=="Dirt")
+                        {
+                            Inventory.Dirt++;
+                            
+                        }
+                        else if (GameMatrix[i, j].Type=="Metal")
+                            Inventory.Metal++;
+                        else if (GameMatrix[i, j].Type=="Vibranium")
+                            Inventory.Vibranium++;
+                        GameMatrix[i, j] = new Floor();
+                    }
+                    break;
+                case Directions.down:
+                    if (GameMatrix[i+1, j].Type !="Border")
+                    {
+                        i++;
+                        if (GameMatrix[i, j].Type=="Dirt")
+                        {
+                            Inventory.Dirt++;
+                        }
+                        else if (GameMatrix[i, j].Type=="Metal")
+                            Inventory.Metal++;
+                        else if (GameMatrix[i, j].Type=="Vibranium")
+                            Inventory.Vibranium++;
+                        GameMatrix[i, j] = new Floor();
+                    }
+                    break;
+                case Directions.left:
+                    if (GameMatrix[i, j-1].Type !="Border")
+                    {
+                        j--;
+                        if (GameMatrix[i, j].Type=="Dirt")
+                        {
+                            Inventory.Dirt++;
+                        }
+                        else if (GameMatrix[i, j].Type=="Metal")
+                            Inventory.Metal++;
+                        else if (GameMatrix[i, j].Type=="Vibranium")
+                            Inventory.Vibranium++;
+                        GameMatrix[i, j] = new Floor();
+                    }
+                    break;
+                case Directions.right:
+                    if (GameMatrix[i, j+1].Type !="Border")
+                    {
+                        j++;
+                        if (GameMatrix[i, j].Type=="Dirt")
+                        {
+                            Inventory.Dirt++;
+                        }
+                        else if (GameMatrix[i, j].Type=="Metal")
+                            Inventory.Metal++;
+                        else if (GameMatrix[i, j].Type=="Vibranium")
+                            Inventory.Vibranium++;
+                        GameMatrix[i, j] = new Floor();
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
+
+       
+    }
     }

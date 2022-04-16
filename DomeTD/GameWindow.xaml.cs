@@ -30,6 +30,7 @@ namespace DomeTD
             DomeLogic logic = new DomeLogic();
             display.SetupModel(logic);
             controller = new GameController(logic);
+            dirt.Content=logic.Inventory.Dirt;
         }
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)

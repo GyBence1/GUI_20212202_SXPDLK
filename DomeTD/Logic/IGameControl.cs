@@ -10,5 +10,6 @@ namespace DomeTD.Logic
     internal interface IGameControl
     {
         void Move(Directions direction);
+        void Dig(Directions direction);
     }
 }
