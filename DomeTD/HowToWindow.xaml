@@ -5,8 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DomeTD"
         mc:Ignorable="d"
-        Title="HowToWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        FontFamily="/Fonts/#Bubblegum"
+        Title="HowToWindow" Height="450" Width="800" WindowState="Maximized" WindowStyle="None">
+    <StackPanel>
+        <StackPanel.Background>
+            <ImageBrush ImageSource="/Images/menubg.jpg"/>
+        </StackPanel.Background>
+        <Label Content="How to play" HorizontalAlignment="Center" FontSize="65" Foreground="#FFE25151"/>
+        <Label Content="-WASD to move" HorizontalAlignment="Center" FontSize="35" Foreground="#FFE25151"/>
+        <Label Content="-SPACE to interact" HorizontalAlignment="Center" FontSize="35" Foreground="#FFE25151"/>
+        <Label Content="-Click on buttons" HorizontalAlignment="Center" FontSize="35" Foreground="#FFE25151"/>
+        <Label Content="-Survive" HorizontalAlignment="Center" FontSize="35" Foreground="#FFE25151"/>
+        <Label Content="-Have FUN!" HorizontalAlignment="Center" FontSize="35" Foreground="#FFE25151"/>
+        <Button Content="BACK" Background="Transparent" FontSize="60" Width="200" HorizontalAlignment="Right" BorderThickness="0" VerticalAlignment="Bottom" Click="Button_Click" Foreground="Black"/>
+    </StackPanel>
 </Window>

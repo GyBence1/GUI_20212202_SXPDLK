@@ -46,7 +46,10 @@ namespace DomeTD
 
         private void HowTo_Click(object sender, RoutedEventArgs e)
         {
-            new HowToWindow().ShowDialog();
+            new HowToWindow().Show();
+            player.Stop();
+            this.Close();
+
         }
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
