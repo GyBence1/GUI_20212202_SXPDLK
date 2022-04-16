@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace DomeTD.Models
 {
-    public interface IMaterials
+    public interface IGameModel
     {
-        string Type { get; }
-        double Thoughness { get; }
-
+        string Type { get; set; }
     }
 }

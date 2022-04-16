@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DomeTD.Models
 {
-    public class Enemy : ObservableObject
+    public class Enemy : ObservableObject, IGameModel
     {
         private string type;
 
@@ -40,8 +40,5 @@ namespace DomeTD.Models
             get { return speed; }
             set { SetProperty(ref speed, value); }
         }
-
-        
-
     }
 }
