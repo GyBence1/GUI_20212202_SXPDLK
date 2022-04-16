@@ -13,7 +13,7 @@ namespace DomeTD.Models
 
         public string Type
         {
-            get { return type; }
+            get { return "Hero"; }
             set { SetProperty( ref type, value); }
         }
         private double drillingpower;
