@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DomeTD.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,5 +13,6 @@ namespace DomeTD.Logic
         {
             up, down, left, right
         }
+        public IGameModel[,] GameMatrix { get; set; }
     }
 }
