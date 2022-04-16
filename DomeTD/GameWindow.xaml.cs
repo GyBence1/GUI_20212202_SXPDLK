@@ -30,7 +30,18 @@ namespace DomeTD
             DomeLogic logic = new DomeLogic();
             display.SetupModel(logic);
             controller = new GameController(logic);
-            dirt.Content=logic.Inventory.Dirt;
+            Binding dirtbinding=new Binding("Dirt");
+            dirtbinding.Source = logic.Inventory;
+            dirt.SetBinding(Label.ContentProperty, dirtbinding);
+
+            Binding metalbinding = new Binding("Metal");
+            metalbinding.Source = logic.Inventory;
+            metal.SetBinding(Label.ContentProperty, metalbinding);
+
+            Binding vibbinding = new Binding("Vibranium");
+            vibbinding.Source = logic.Inventory;
+            vibranium.SetBinding(Label.ContentProperty, vibbinding);
+
         }
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
