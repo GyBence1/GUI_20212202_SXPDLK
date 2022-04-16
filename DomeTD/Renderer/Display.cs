@@ -33,6 +33,7 @@ namespace DomeTD.Renderer
             {
                 double rectWidth = size.Width / model.GameMatrix.GetLength(1);
                 double rectHeight = size.Height / model.GameMatrix.GetLength(0);
+                
 
                 for (int i = 0; i < model.GameMatrix.GetLength(0); i++)
                 {
@@ -64,7 +65,7 @@ namespace DomeTD.Renderer
                                 break;
                             case MainCharacter:
                                 brush = new ImageBrush
-                                    (new BitmapImage(new Uri("Images/dirt.bmp", UriKind.RelativeOrAbsolute)));
+                                    (new BitmapImage(new Uri("Images/character.bmp", UriKind.RelativeOrAbsolute)));
                                 break;
                             case Weapon:
                                 brush = new ImageBrush

@@ -29,7 +29,7 @@ namespace DomeTD.Models
 
         public string Type
         {
-            get { return type; }
+            get { return "Weapon"; }
             set { type = value; }
         }
 

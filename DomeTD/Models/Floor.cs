@@ -12,7 +12,7 @@ namespace DomeTD.Models
 
         public string Type
         {
-            get { return type; }
+            get { return "Floor"; }
             set { type = value; }
         }
 

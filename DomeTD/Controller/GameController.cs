@@ -21,16 +21,16 @@ namespace DomeTD.Controller
         {
             switch (key)
             {
-                case Key.Up:
+                case Key.W:
                     control.Move(DomeLogic.Directions.up);
                     break;
-                case Key.Down:
+                case Key.S:
                     control.Move(DomeLogic.Directions.down);
                     break;
-                case Key.Left:
+                case Key.A:
                     control.Move(DomeLogic.Directions.left);
                     break;
-                case Key.Right:
+                case Key.D:
                     control.Move(DomeLogic.Directions.right);
                     break;
             }

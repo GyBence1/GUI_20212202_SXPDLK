@@ -56,6 +56,7 @@ namespace DomeTD.Logic
                 case 'm': return new Metal();
                 case 'v': return new Vibranium();
                 case 'k': return new BGround();
+                case 'c': return new MainCharacter();
                 default: return null;
             }
         }
@@ -76,7 +77,47 @@ namespace DomeTD.Logic
 
         public void Move(Directions direction)
         {
-            throw new NotImplementedException();
+
+            var coords = WhereAmI();
+            int i = coords[0];
+            int j = coords[1];
+            int old_i = i;
+            int old_j = j;
+            switch (direction)
+            {
+                case Directions.up:
+                    if (i - 1 >= 0)
+                    {
+                        i--;
+                    }
+                    break;
+                case Directions.down:
+                    if (i + 1 < GameMatrix.GetLength(0))
+                    {
+                        i++;
+                    }
+                    break;
+                case Directions.left:
+                    if (j - 1 >= 0)
+                    {
+                        j--;
+                    }
+                    break;
+                case Directions.right:
+                    if (j + 1 < GameMatrix.GetLength(1))
+                    {
+                        j++;
+                    }
+                    break;
+                default:
+                    break;
+            }
+            if (GameMatrix[i, j].Type =="Floor" )
+            {
+                GameMatrix[i, j] = new MainCharacter();
+                GameMatrix[old_i, old_j] = new Floor();
+            }
+        }
+
         }
     }
-}
