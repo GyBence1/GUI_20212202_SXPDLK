@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace DomeTD.Models
 {
-    public class MainCharacter : ObservableObject
+    public class MainCharacter : ObservableObject,IGameModel
     {
-        private string name;
+        private string type;
 
-        public string Name
+        public string Type
         {
-            get { return name; }
-            set { SetProperty( ref name , value); }
+            get { return type; }
+            set { SetProperty( ref type, value); }
         }
         private double drillingpower;
 

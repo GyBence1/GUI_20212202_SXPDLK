@@ -6,15 +6,16 @@ using System.Threading.Tasks;
 
 namespace DomeTD.Models
 {
-    public class Vibranium : IMaterials
+    public class Vibranium : IGameModel
     {
+        private string type;
+
         public string Type
         {
-            get
-            {
-                return "vibranium";
-            }
+            get { return "Vibranium"; }
+            set { type = value; }
         }
+
 
         public double Thoughness
         {

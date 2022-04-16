@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace DomeTD.Models
 {
-    public class Enemy : ObservableObject
+    public class Enemy : ObservableObject,IGameModel
     {
         private string type;
 
         public string Type
         {
-            get { return type; }
+            get { return "Enemy"; }
             set { SetProperty(ref type, value); }
         }
 

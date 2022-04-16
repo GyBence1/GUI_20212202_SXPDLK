@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DomeTD.Models
 {
-    public class Weapon : ObservableObject
+    public class Weapon : ObservableObject,IGameModel
     {
         private double attackDamage;
 
@@ -25,6 +25,13 @@ namespace DomeTD.Models
             set { SetProperty(ref attackSpeed, value); }
         }
 
+        private string type;
+
+        public string Type
+        {
+            get { return type; }
+            set { type = value; }
+        }
 
     }
 }
