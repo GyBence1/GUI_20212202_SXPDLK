@@ -30,7 +30,10 @@ namespace DomeTD
             DomeLogic logic = new DomeLogic();
             display.SetupModel(logic);
             controller = new GameController(logic);
-            dirt.Content=logic.Inventory.Dirt;
+            dirt.Content = logic.Inventory.Dirt;
+            
+           // dirt.Content=logic.Inventory.Dirt;
+            
         }
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -48,6 +51,8 @@ namespace DomeTD
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             controller.KeyPressed(e.Key);
+            //var a = dirt.GetBindingExpression(Label.ContentProperty);
+            //a.UpdateSource();
             display.InvalidateVisual();
         }
     }

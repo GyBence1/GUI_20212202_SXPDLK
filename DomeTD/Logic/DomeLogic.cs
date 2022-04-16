@@ -30,7 +30,7 @@ namespace DomeTD.Logic
             
             Inventory = new Inventory();
             levels = new Queue<string>();
-            var lvls = Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "Levels"),
+            var lvls = Directory.GetFiles(@"C:\Users\Csoza\source\repos\GUI_20212202_SXPDLK\DomeTD\bin\Debug\net5.0-windows\Levels",
                 "*.lvl");
             foreach (var item in lvls)
             {
@@ -137,10 +137,9 @@ namespace DomeTD.Logic
                         i--;
                         if (GameMatrix[i, j].Type=="Dirt")
                         {
-                            Inventory.Dirt++;
-                           
-                            
+                            Inventory.Dirt++;                                                      
                         }
+                        
                         else if (GameMatrix[i, j].Type=="Metal")
                         {
                             Inventory.Metal++;
@@ -230,6 +229,7 @@ namespace DomeTD.Logic
                 default:
                     break;
             }
+            ;
         }
 
        
