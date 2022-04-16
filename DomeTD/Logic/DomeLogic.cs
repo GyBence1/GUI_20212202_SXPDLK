@@ -1,4 +1,5 @@
 ﻿using DomeTD.Models;
+using Microsoft.Toolkit.Mvvm.Messaging;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,6 +16,7 @@ namespace DomeTD.Logic
 
     public class DomeLogic:IGameModel, IGameControl
     {
+        IMessenger messenger;
         public Inventory Inventory { get; set; }
         public enum Directions
         {
@@ -25,6 +27,7 @@ namespace DomeTD.Logic
 
         public DomeLogic()
         {
+            
             Inventory = new Inventory();
             levels = new Queue<string>();
             var lvls = Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "Levels"),
@@ -48,6 +51,7 @@ namespace DomeTD.Logic
             }
 
         }
+      
         public IGameItem lvlConvert(char v)
         {
             switch (v)
@@ -134,12 +138,20 @@ namespace DomeTD.Logic
                         if (GameMatrix[i, j].Type=="Dirt")
                         {
                             Inventory.Dirt++;
+                           
                             
                         }
                         else if (GameMatrix[i, j].Type=="Metal")
+                        {
                             Inventory.Metal++;
+                           
+                        }
+                            
                         else if (GameMatrix[i, j].Type=="Vibranium")
+                        {
                             Inventory.Vibranium++;
+                            
+                        }
                         GameMatrix[i, j] = new Floor();
                     }
                     break;
@@ -150,11 +162,20 @@ namespace DomeTD.Logic
                         if (GameMatrix[i, j].Type=="Dirt")
                         {
                             Inventory.Dirt++;
+                           
+
                         }
                         else if (GameMatrix[i, j].Type=="Metal")
+                        {
                             Inventory.Metal++;
+                            
+                        }
+
                         else if (GameMatrix[i, j].Type=="Vibranium")
+                        {
                             Inventory.Vibranium++;
+                           
+                        }
                         GameMatrix[i, j] = new Floor();
                     }
                     break;
@@ -165,11 +186,20 @@ namespace DomeTD.Logic
                         if (GameMatrix[i, j].Type=="Dirt")
                         {
                             Inventory.Dirt++;
+                           
+
                         }
                         else if (GameMatrix[i, j].Type=="Metal")
+                        {
                             Inventory.Metal++;
+                         
+                        }
+
                         else if (GameMatrix[i, j].Type=="Vibranium")
+                        {
                             Inventory.Vibranium++;
+                            
+                        }
                         GameMatrix[i, j] = new Floor();
                     }
                     break;
@@ -180,11 +210,20 @@ namespace DomeTD.Logic
                         if (GameMatrix[i, j].Type=="Dirt")
                         {
                             Inventory.Dirt++;
+                          
+
                         }
                         else if (GameMatrix[i, j].Type=="Metal")
+                        {
                             Inventory.Metal++;
+                            
+                        }
+
                         else if (GameMatrix[i, j].Type=="Vibranium")
+                        {
                             Inventory.Vibranium++;
+                            
+                        }
                         GameMatrix[i, j] = new Floor();
                     }
                     break;

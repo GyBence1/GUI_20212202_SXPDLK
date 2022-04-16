@@ -40,7 +40,7 @@ namespace DomeTD.Models
         public int Vibranium
         {
             get { return vibranium; }
-            set { SetProperty(ref dirt, value); }
+            set { SetProperty(ref vibranium, value); }
         }
 
 

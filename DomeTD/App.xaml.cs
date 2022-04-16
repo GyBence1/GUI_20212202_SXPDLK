@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using DomeTD.Logic;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Toolkit.Mvvm.DependencyInjection;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using System;
@@ -16,13 +17,14 @@ namespace DomeTD
     /// </summary>
     public partial class App : Application
     {
-        public App()
-        {
-            Ioc.Default.ConfigureServices(
-            new ServiceCollection()
-            .AddSingleton<IMessenger>(WeakReferenceMessenger.Default)
-            .BuildServiceProvider()
-            );
-        }
+        //public App()
+        //{
+        //    Ioc.Default.ConfigureServices(
+        //    new ServiceCollection()
+        //    .AddSingleton<IGameControl, DomeLogic>()
+        //    .AddSingleton<IMessenger>(WeakReferenceMessenger.Default)
+        //    .BuildServiceProvider()
+        //    );
+        //}
     }
 }
