@@ -21,7 +21,7 @@ namespace DomeTD.Models
 
         public double Health
         {
-            get { return health; }
+            get { return 100; }
             set { SetProperty(ref health, value); }
         }
 

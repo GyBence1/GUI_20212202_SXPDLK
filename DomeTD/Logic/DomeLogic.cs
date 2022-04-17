@@ -231,8 +231,39 @@ namespace DomeTD.Logic
             }
             ;
         }
-        public void makeEnemies()
+        public void EnemyLogic()
         {
+            //int i = 9;
+            //int j = GameMatrix.GetLength(1);
+            //int f = GameMatrix.GetLength(1);
+            //while (GameMatrix[i,j].Type != "Dome")
+            //{
+            //    if (GameMatrix[i,f].Type=="Background")
+            //    {
+            //        GameMatrix[i,f] = new Enemy();
+            //    }
+            //    for (int k = 1; k < f ; k++)
+            //    {
+            //        if (GameMatrix[i,k-1].Type == "Background" && GameMatrix[i,k].Type =="Enemy")
+            //        {
+            //            GameMatrix[i, k-1] = new Enemy();
+            //            GameMatrix[i, k] = new BGround();
+            //        }
+            //    }
+            //}
+            //Enemy enemy = new Enemy();
+            //int i = 9;
+            //for (int k = 0; k < 5; k++)
+            //{
+            //    for (int j = GameMatrix.GetLength(1) - 1; j >= 0; j--)
+            //    {
+            //        if (GameMatrix[i, j])
+            //        {
+
+            //        }
+            //    }
+            //}
+            
 
         }
 
