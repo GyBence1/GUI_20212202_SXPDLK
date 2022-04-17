@@ -35,7 +35,7 @@ namespace DomeTD
            
             InitializeComponent();
             dt2 = new DispatcherTimer();
-            dt2.Interval=TimeSpan.FromSeconds(1);
+            dt2.Interval=TimeSpan.FromMilliseconds(600);
             dt2.Tick += async(sender, eargs) =>
             {
                 foreach (var e in logic.Enemies)
@@ -60,8 +60,6 @@ namespace DomeTD
                 time = time.Add(TimeSpan.FromSeconds(-1));
             }, Application.Current.Dispatcher);
             dt.Start();
-           
-
             display.SetupModel(logic);
             controller = new GameController(logic);
             Binding dirtbinding=new Binding("Dirt");
@@ -95,16 +93,6 @@ namespace DomeTD
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             controller.KeyPressed(e.Key);
-            if (e.Key==Key.Space)
-            {
-                dt3=new DispatcherTimer();
-                dt3.Interval =TimeSpan.FromSeconds(1);
-                dt3.Tick += (sender, eargs) =>
-                {
-                        logic.Shoot();
-                        display.InvalidateVisual();
-                };
-            }
             display.InvalidateVisual();
         }
          

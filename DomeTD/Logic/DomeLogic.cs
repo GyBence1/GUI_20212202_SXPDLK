@@ -281,7 +281,7 @@ namespace DomeTD.Logic
             Laser l=new Laser();
             l.J=1;
             int i = 9;
-            while(GameMatrix[i, l.J+1].Type!="Enemy")
+            while(GameMatrix[i, l.J+1].Type!="Enemy"&&l.J<=GameMatrix.GetLength(1))
             {
                 await Task.Delay(100);
                 GameMatrix[i, l.J+1]= l;
