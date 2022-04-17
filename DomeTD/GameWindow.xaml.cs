@@ -37,7 +37,10 @@ namespace DomeTD
             dt2.Interval=TimeSpan.FromSeconds(1);
             dt2.Tick += (sender, eargs) =>
             {
-                logic.MoveEnemy();
+                for (int i = 0; i < logic.Enemies.Count; i++)
+                {
+                    logic.MoveEnemy(logic.Enemies[i]);
+                }
                 display.InvalidateVisual();
             };
             time = TimeSpan.FromSeconds(5);

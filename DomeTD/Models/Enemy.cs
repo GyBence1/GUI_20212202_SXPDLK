@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DomeTD.Models
 {
-    public class Enemy : ObservableObject,IGameItem
+    public class Enemy : IGameItem
     {
         private string type;
 
@@ -41,7 +41,14 @@ namespace DomeTD.Models
             set { speed = value; ; }
         }
 
-        
+        private int j;
+
+        public int J
+        {
+            get { return j; }
+            set { j = value; }
+        }
+
 
     }
 }

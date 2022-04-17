@@ -20,6 +20,7 @@ namespace DomeTD.Logic
         public MainCharacter Hero { get; set; }
         public Dome Dome { get; set; }
         public Inventory Inventory { get; set; }
+        public List<Enemy> Enemies { get; set; }
         public enum Directions
         {
             up, down, left, right
@@ -29,7 +30,6 @@ namespace DomeTD.Logic
 
         public DomeLogic()
         {
-            
             Inventory = new Inventory();
             levels = new Queue<string>();
             Hero = new MainCharacter();
@@ -53,7 +53,11 @@ namespace DomeTD.Logic
                     GameMatrix[i, j] = lvlConvert(lines[i][j]);
                 }
             }
-
+            Enemies=new List<Enemy>();
+            for (int i = 0; i < 10; i++)
+            {
+                Enemies.Add(Spawn());
+            }
         }
       
         public IGameItem lvlConvert(char v)
@@ -237,36 +241,18 @@ namespace DomeTD.Logic
                     break;
             }
         }
-        public void MoveEnemy()
+        public void MoveEnemy(Enemy e)
         {
-            //int i = 9;
-            //int j = GameMatrix.GetLength(1);
-            //while (true)
-            //{
-            //    if (GameMatrix[i, j].Type=="Background")
-            //    {
-            //        GameMatrix[i, j] = new Enemy();
-            //    }
-            //    for (int k = 0; k < j; k++)
-            //    {
-            //        if (GameMatrix[i, k-1].Type == "Background" && GameMatrix[i, k].Type =="Enemy")
-            //        {
-            //            GameMatrix[i, k-1] = new Enemy();
-            //            GameMatrix[i, k] = new BGround();
-            //        }
-            //    }
-            //}
             int i = 9;
-            int j = EnemyJ();
-            Enemy e=new Enemy();
-            if (j>0)
-            {
-                if (GameMatrix[i, j-1].Type!="Dome")
+                if (GameMatrix[i, e.J-1].Type!="Dome")
                 {
-                    GameMatrix[i, j-1]=e;
-                    GameMatrix[i, j]=new BGround();
+                    GameMatrix[i, e.J-1]=e;
+                    e.J--;
+                    GameMatrix[i, e.J+1]=new BGround();
                 }
-            }
+
+            
+           
             
         }
         public int EnemyJ()
@@ -282,13 +268,14 @@ namespace DomeTD.Logic
             }
             return k;
         }
-        public void Spawn()
+        public Enemy Spawn()
         {
             int i = 9;
-            int j = GameMatrix.GetLength(1);
+            int j = GameMatrix.GetLength(1)-1;
             Enemy e = new Enemy();
+            e.J=j;
             GameMatrix[i, j]=e;
-            
+            return e;
         }
     }
     }
