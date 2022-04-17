@@ -16,6 +16,7 @@ namespace DomeTD.Logic
 
     public class DomeLogic:IGameModel, IGameControl
     {
+        public MainCharacter Hero { get; set; }
         IMessenger messenger;
         public Inventory Inventory { get; set; }
         public enum Directions
@@ -30,6 +31,7 @@ namespace DomeTD.Logic
             
             Inventory = new Inventory();
             levels = new Queue<string>();
+            Hero = new MainCharacter();
             var lvls = Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "Levels"),
                 "*.lvl");
             foreach (var item in lvls)
@@ -120,7 +122,7 @@ namespace DomeTD.Logic
             }
             if (GameMatrix[i, j].Type =="Floor" )
             {
-                GameMatrix[i, j] = new MainCharacter();
+                GameMatrix[i, j] = Hero;
                 GameMatrix[old_i, old_j] = new Floor();
             }
         }
