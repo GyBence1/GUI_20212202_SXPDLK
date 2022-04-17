@@ -17,7 +17,11 @@
         <inv:Inventory></inv:Inventory>
     </Window.DataContext>
     <Grid x:Name="grid">
-        <Label x:Name="dirt"/>
+        <StackPanel>
+            <Label FontFamily="/Fonts/#Bubblegum" ContentStringFormat="Dirt: {0}" x:Name="dirt"/>
+            <Label FontFamily="/Fonts/#Bubblegum" ContentStringFormat="Metal: {0}" x:Name="metal"/>
+            <Label FontFamily="/Fonts/#Bubblegum" ContentStringFormat="Vibranium: {0}" x:Name="vibranium"/>
+        </StackPanel>
         <renderer:Display x:Name="display"/>
     </Grid>
 </Window>
