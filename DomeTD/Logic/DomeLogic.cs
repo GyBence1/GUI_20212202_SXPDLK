@@ -159,21 +159,21 @@ namespace DomeTD.Logic
                     if (GameMatrix[i-1, j].Type !="Border")
                     {
                         i--;
-                        if (GameMatrix[i, j].Type == "Dirt" && Hero.Drillingpower >= dirt.Thoughness)
+                        if (GameMatrix[i, j].Type == "Dirt")
                         {
                             await Task.Delay(dgt);
                             Inventory.Dirt++;
                             GameMatrix[i, j] = new Floor();
 
                         }
-                        else if (GameMatrix[i, j].Type == "Metal" && Hero.Drillingpower >= metal.Thoughness)
+                        else if (GameMatrix[i, j].Type == "Metal")
                         {
                             await Task.Delay(mgt);
                             Inventory.Metal++;
                             GameMatrix[i, j] = new Floor();
                         }
 
-                        else if (GameMatrix[i, j].Type == "Vibranium" && Hero.Drillingpower >= vibranium.Thoughness)
+                        else if (GameMatrix[i, j].Type == "Vibranium")
                         {
                             await Task.Delay(vgt);
                             Inventory.Vibranium++;
@@ -185,21 +185,21 @@ namespace DomeTD.Logic
                     if (GameMatrix[i+1, j].Type !="Border")
                     {
                         i++;
-                        if (GameMatrix[i, j].Type == "Dirt" && Hero.Drillingpower >= dirt.Thoughness)
+                        if (GameMatrix[i, j].Type == "Dirt")
                         {
                             await Task.Delay(dgt);
                             Inventory.Dirt++;
                             GameMatrix[i, j] = new Floor();
 
                         }
-                        else if (GameMatrix[i, j].Type == "Metal" && Hero.Drillingpower >= metal.Thoughness)
+                        else if (GameMatrix[i, j].Type == "Metal")
                         {
                             await Task.Delay(mgt);
                             Inventory.Metal++;
                             GameMatrix[i, j] = new Floor();
                         }
 
-                        else if (GameMatrix[i, j].Type == "Vibranium" && Hero.Drillingpower >= vibranium.Thoughness)
+                        else if (GameMatrix[i, j].Type == "Vibranium")
                         {
                             await Task.Delay(vgt);
                             Inventory.Vibranium++;
@@ -211,21 +211,21 @@ namespace DomeTD.Logic
                     if (GameMatrix[i, j-1].Type !="Border")
                     {
                         j--;
-                        if (GameMatrix[i, j].Type == "Dirt" && Hero.Drillingpower >= dirt.Thoughness)
+                        if (GameMatrix[i, j].Type == "Dirt")
                         {
                             await Task.Delay(dgt);
                             Inventory.Dirt++;
                             GameMatrix[i, j] = new Floor();
 
                         }
-                        else if (GameMatrix[i, j].Type == "Metal" && Hero.Drillingpower >= metal.Thoughness)
+                        else if (GameMatrix[i, j].Type == "Metal")
                         {
                             await Task.Delay(mgt);
                             Inventory.Metal++;
                             GameMatrix[i, j] = new Floor();
                         }
 
-                        else if (GameMatrix[i, j].Type == "Vibranium" && Hero.Drillingpower >= vibranium.Thoughness)
+                        else if (GameMatrix[i, j].Type == "Vibranium")
                         {
                             await Task.Delay(vgt);
                             Inventory.Vibranium++;
@@ -236,21 +236,21 @@ namespace DomeTD.Logic
                 case Directions.right:
                     if (GameMatrix[i, j+1].Type !="Border")
                     {                                               
-                        //j++;                       
-                        if (GameMatrix[i, j+1].Type=="Dirt")
+                        j++;                       
+                        if (GameMatrix[i, j].Type=="Dirt")
                         {
                             await Task.Delay(dgt);
-                            Inventory.Dirt++;                       
-                            GameMatrix[i, j+1] = new Floor();
+                            Inventory.Dirt++;
+                            GameMatrix[i, j] = new Floor();
                         }
                         else if (GameMatrix[i, j].Type=="Metal")
                         {
                             await Task.Delay(mgt);
                             Inventory.Metal++;
-                            GameMatrix[i, j+1] = new Floor();
+                            GameMatrix[i, j] = new Floor();
                         }
 
-                        else if (GameMatrix[i, j+1].Type=="Vibranium")
+                        else if (GameMatrix[i, j].Type=="Vibranium")
                         {
                             await Task.Delay(vgt);
                             Inventory.Vibranium++;
