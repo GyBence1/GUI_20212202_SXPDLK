@@ -21,7 +21,7 @@ namespace DomeTD.Models
 
         public double Health
         {
-            get { return 100; }
+            get { return 101; }
             set { health = value; ; }
         }
 

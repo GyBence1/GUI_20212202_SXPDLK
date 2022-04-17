@@ -22,6 +22,7 @@ namespace DomeTD.Logic
         public Dome Dome { get; set; }
         public Inventory Inventory { get; set; }
         public List<Enemy> Enemies { get; set; }
+        public int AttackDamage { get; set; }
         public enum Directions
         {
             up, down, left, right
@@ -31,7 +32,7 @@ namespace DomeTD.Logic
 
         public DomeLogic()
         {
-
+            AttackDamage = 10;
             Inventory = new Inventory();
             levels = new Queue<string>();
             Hero = new MainCharacter();
@@ -56,7 +57,7 @@ namespace DomeTD.Logic
                 }
             }
             Enemies=new List<Enemy>();
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 1; i++)
             {
                 Enemies.Add(Spawn());
             }
@@ -243,28 +244,30 @@ namespace DomeTD.Logic
                     break;
             }
         }
-        public async void MoveEnemy(Enemy e)
+        public void MoveEnemy(Enemy e)
         {
             int i = 9;
             if (GameMatrix[i, e.J-1].Type!="Dome")
             {
-                GameMatrix[i,e.J-1]= e;
+                if (GameMatrix[i, e.J-1].Type=="Laser")
+                {
+                    e.Health-=AttackDamage;
+                    if (e.Health<=0)
+                    {
+                        e=null;
+                    }
+                    else
+                    {
+                        GameMatrix[i, e.J-1]= e;
+                        e.J--;
+                        GameMatrix[i, e.J+1]=new BGround();
+                    }
+                }
+                GameMatrix[i, e.J-1]= e;
                 e.J--;
                 GameMatrix[i, e.J+1]=new BGround();
+
             }  
-        }
-        public int EnemyJ()
-        {
-            int k = 0;
-            for (int j = 0; j < GameMatrix.GetLength(1); j++)
-            {
-                if (GameMatrix[9, j].Type == "Enemy")
-                {
-                    k=j;
-                }
-                
-            }
-            return k;
         }
         public Enemy Spawn()
         {
@@ -281,13 +284,14 @@ namespace DomeTD.Logic
             Laser l=new Laser();
             l.J=1;
             int i = 9;
-            while(GameMatrix[i, l.J+1].Type!="Enemy"&&l.J<=GameMatrix.GetLength(1))
+            while(GameMatrix[i, l.J+1].Type!="Enemy"&&l.J<=GameMatrix.GetLength(1)-1)
             {
                 await Task.Delay(100);
                 GameMatrix[i, l.J+1]= l;
                 l.J++;
                 GameMatrix[i, l.J-1]=new BGround();
             }
+            l=null;
         }
     }
     }
