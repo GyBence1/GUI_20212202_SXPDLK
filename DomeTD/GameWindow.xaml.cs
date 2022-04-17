@@ -31,10 +31,10 @@ namespace DomeTD
         DomeLogic logic = new DomeLogic();
         public GameWindow()
         {
-           
+
             InitializeComponent();
             dt2 = new DispatcherTimer();
-            dt2.Interval=TimeSpan.FromSeconds(1);
+            dt2.Interval = TimeSpan.FromSeconds(1);
             dt2.Tick += (sender, eargs) =>
             {
                 for (int i = 0; i < logic.Enemies.Count; i++)
@@ -55,11 +55,11 @@ namespace DomeTD
                 time = time.Add(TimeSpan.FromSeconds(-1));
             }, Application.Current.Dispatcher);
             dt.Start();
-           
+
 
             display.SetupModel(logic);
             controller = new GameController(logic);
-            Binding dirtbinding=new Binding("Dirt");
+            Binding dirtbinding = new Binding("Dirt");
             dirtbinding.Source = logic.Inventory;
             dirt.SetBinding(Label.ContentProperty, dirtbinding);
 
@@ -70,6 +70,14 @@ namespace DomeTD
             Binding vibbinding = new Binding("Vibranium");
             vibbinding.Source = logic.Inventory;
             vibranium.SetBinding(Label.ContentProperty, vibbinding);
+
+            Binding drillbinding = new Binding("DrillingPower");
+            drillbinding.Source = logic.Hero;
+            drill.SetBinding(Label.ContentProperty, drillbinding);
+
+            Binding weaponbinding = new Binding("AttackDamage");
+            weaponbinding.Source = logic.Dome;
+            weapon.SetBinding(Label.ContentProperty, weaponbinding);
 
         }
 
@@ -83,7 +91,7 @@ namespace DomeTD
         {
             display.Resize(new Size(grid.ActualWidth, grid.ActualHeight));
             display.InvalidateVisual();
-           
+
 
         }
 
@@ -92,6 +100,19 @@ namespace DomeTD
             controller.KeyPressed(e.Key);
             display.InvalidateVisual();
         }
-         
+
+        private void weaponbutton_Click(object sender, RoutedEventArgs e)
+        {
+
+            logic.Dome.AttackDamage++;
+            display.InvalidateVisual();
+        }
+
+        private void drillbutton_Click(object sender, RoutedEventArgs e)
+        {
+            logic.Hero.DrillingPower++;
+            display.InvalidateVisual();
+
+        }
     }
 }

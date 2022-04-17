@@ -15,7 +15,7 @@ namespace DomeTD.Logic
         IGameItem[,] GameMatrix { get; set; }
     }
 
-    public class DomeLogic:IGameModel, IGameControl
+    public class DomeLogic : IGameModel, IGameControl
     {
         public MainCharacter Hero { get; set; }
         public Dome Dome { get; set; }
@@ -33,7 +33,9 @@ namespace DomeTD.Logic
             Inventory = new Inventory();
             levels = new Queue<string>();
             Hero = new MainCharacter();
-            Dome=new Dome();
+            Hero.DrillingPower = 1;
+            Dome = new Dome();
+            Dome.AttackDamage = 5;
             var lvls = Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "Levels"),
                 "*.lvl");
             foreach (var item in lvls)
@@ -41,11 +43,12 @@ namespace DomeTD.Logic
                 levels.Enqueue(item);
             }
             LoadNext(levels.Dequeue());
+            ;
         }
         private void LoadNext(string path)
         {
             string[] lines = File.ReadAllLines(path);
-            GameMatrix = new IGameItem[30,50];
+            GameMatrix = new IGameItem[30, 50];
             for (int i = 0; i < GameMatrix.GetLength(0); i++)
             {
                 for (int j = 0; j < GameMatrix.GetLength(1); j++)
@@ -53,13 +56,13 @@ namespace DomeTD.Logic
                     GameMatrix[i, j] = lvlConvert(lines[i][j]);
                 }
             }
-            Enemies=new List<Enemy>();
+            Enemies = new List<Enemy>();
             for (int i = 0; i < 10; i++)
             {
                 Enemies.Add(Spawn());
             }
         }
-      
+
         public IGameItem lvlConvert(char v)
         {
             switch (v)
@@ -128,7 +131,7 @@ namespace DomeTD.Logic
                 default:
                     break;
             }
-            if (GameMatrix[i, j].Type =="Floor" )
+            if (GameMatrix[i, j].Type == "Floor")
             {
                 GameMatrix[i, j] = Hero;
                 GameMatrix[old_i, old_j] = new Floor();
@@ -142,97 +145,97 @@ namespace DomeTD.Logic
             switch (direction)
             {
                 case Directions.up:
-                    if (GameMatrix[i-1, j].Type !="Border")
+                    if (GameMatrix[i - 1, j].Type != "Border")
                     {
                         i--;
-                        if (GameMatrix[i, j].Type=="Dirt")
+                        if (GameMatrix[i, j].Type == "Dirt")
                         {
                             Inventory.Dirt++;
-                           
-                            
+
+
                         }
-                        else if (GameMatrix[i, j].Type=="Metal")
+                        else if (GameMatrix[i, j].Type == "Metal")
                         {
                             Inventory.Metal++;
-                           
+
                         }
-                            
-                        else if (GameMatrix[i, j].Type=="Vibranium")
+
+                        else if (GameMatrix[i, j].Type == "Vibranium")
                         {
                             Inventory.Vibranium++;
-                            
+
                         }
                         GameMatrix[i, j] = new Floor();
                     }
                     break;
                 case Directions.down:
-                    if (GameMatrix[i+1, j].Type !="Border")
+                    if (GameMatrix[i + 1, j].Type != "Border")
                     {
                         i++;
-                        if (GameMatrix[i, j].Type=="Dirt")
+                        if (GameMatrix[i, j].Type == "Dirt")
                         {
                             Inventory.Dirt++;
-                           
+
 
                         }
-                        else if (GameMatrix[i, j].Type=="Metal")
+                        else if (GameMatrix[i, j].Type == "Metal")
                         {
                             Inventory.Metal++;
-                            
+
                         }
 
-                        else if (GameMatrix[i, j].Type=="Vibranium")
+                        else if (GameMatrix[i, j].Type == "Vibranium")
                         {
                             Inventory.Vibranium++;
-                           
+
                         }
                         GameMatrix[i, j] = new Floor();
                     }
                     break;
                 case Directions.left:
-                    if (GameMatrix[i, j-1].Type !="Border")
+                    if (GameMatrix[i, j - 1].Type != "Border")
                     {
                         j--;
-                        if (GameMatrix[i, j].Type=="Dirt")
+                        if (GameMatrix[i, j].Type == "Dirt")
                         {
                             Inventory.Dirt++;
-                           
+
 
                         }
-                        else if (GameMatrix[i, j].Type=="Metal")
+                        else if (GameMatrix[i, j].Type == "Metal")
                         {
                             Inventory.Metal++;
-                         
+
                         }
 
-                        else if (GameMatrix[i, j].Type=="Vibranium")
+                        else if (GameMatrix[i, j].Type == "Vibranium")
                         {
                             Inventory.Vibranium++;
-                            
+
                         }
                         GameMatrix[i, j] = new Floor();
                     }
                     break;
                 case Directions.right:
-                    if (GameMatrix[i, j+1].Type !="Border")
+                    if (GameMatrix[i, j + 1].Type != "Border")
                     {
                         j++;
-                        if (GameMatrix[i, j].Type=="Dirt")
+                        if (GameMatrix[i, j].Type == "Dirt")
                         {
                             Inventory.Dirt++;
-                          
+
 
                         }
-                        else if (GameMatrix[i, j].Type=="Metal")
+                        else if (GameMatrix[i, j].Type == "Metal")
                         {
                             Inventory.Metal++;
-                            
+
                         }
 
-                        else if (GameMatrix[i, j].Type=="Vibranium")
+                        else if (GameMatrix[i, j].Type == "Vibranium")
                         {
                             Inventory.Vibranium++;
-                            
+
                         }
                         GameMatrix[i, j] = new Floor();
                     }
@@ -244,16 +247,16 @@ namespace DomeTD.Logic
         public void MoveEnemy(Enemy e)
         {
             int i = 9;
-                if (GameMatrix[i, e.J-1].Type!="Dome")
-                {
-                    GameMatrix[i, e.J-1]=e;
-                    e.J--;
-                    GameMatrix[i, e.J+1]=new BGround();
-                }
+            if (GameMatrix[i, e.J - 1].Type != "Dome")
+            {
+                GameMatrix[i, e.J - 1] = e;
+                e.J--;
+                GameMatrix[i, e.J + 1] = new BGround();
+            }
 
-            
-           
-            
+
+
+
         }
         public int EnemyJ()
         {
@@ -262,20 +265,20 @@ namespace DomeTD.Logic
             {
                 if (GameMatrix[9, j].Type == "Enemy")
                 {
-                    k=j;
+                    k = j;
                 }
-                
+
             }
             return k;
         }
         public Enemy Spawn()
         {
             int i = 9;
-            int j = GameMatrix.GetLength(1)-1;
+            int j = GameMatrix.GetLength(1) - 1;
             Enemy e = new Enemy();
-            e.J=j;
-            GameMatrix[i, j]=e;
+            e.J = j;
+            GameMatrix[i, j] = e;
             return e;
         }
     }
-    }
+}

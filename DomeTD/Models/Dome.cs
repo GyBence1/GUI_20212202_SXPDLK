@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DomeTD.Models
 {
-    public class Dome:IGameItem
+    public class Dome:IGameItem, INotifyPropertyChanged
     {
         private string type;
 
@@ -20,7 +21,10 @@ namespace DomeTD.Models
         public double AttackDamage
         {
             get { return attackDamage; }
-            set { attackDamage = value; ; }
+            set { 
+                attackDamage = value;
+                OnPropertyChanged("AttackDamage");
+            }
         }
 
         private double attackSpeed;
@@ -38,5 +42,15 @@ namespace DomeTD.Models
             set { health = value; }
         }
 
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        private void OnPropertyChanged(string info)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(info));
+            }
+        }
     }
 }
