@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DomeTD.Logic
@@ -17,7 +18,7 @@ namespace DomeTD.Logic
     public class DomeLogic:IGameModel, IGameControl
     {
         public MainCharacter Hero { get; set; }
-        IMessenger messenger;
+        public Dome Dome { get; set; }
         public Inventory Inventory { get; set; }
         public enum Directions
         {
@@ -32,6 +33,7 @@ namespace DomeTD.Logic
             Inventory = new Inventory();
             levels = new Queue<string>();
             Hero = new MainCharacter();
+            Dome=new Dome();
             var lvls = Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "Levels"),
                 "*.lvl");
             foreach (var item in lvls)
@@ -64,7 +66,9 @@ namespace DomeTD.Logic
                 case 'm': return new Metal();
                 case 'v': return new Vibranium();
                 case 'k': return new BGround();
-                case 'c': return new MainCharacter();
+                case 'c': return Hero;
+                case 'e': return new Enemy();
+                case 'b': return Dome;
                 default: return null;
             }
         }
@@ -233,7 +237,58 @@ namespace DomeTD.Logic
                     break;
             }
         }
-
-       
+        public void MoveEnemy()
+        {
+            //int i = 9;
+            //int j = GameMatrix.GetLength(1);
+            //while (true)
+            //{
+            //    if (GameMatrix[i, j].Type=="Background")
+            //    {
+            //        GameMatrix[i, j] = new Enemy();
+            //    }
+            //    for (int k = 0; k < j; k++)
+            //    {
+            //        if (GameMatrix[i, k-1].Type == "Background" && GameMatrix[i, k].Type =="Enemy")
+            //        {
+            //            GameMatrix[i, k-1] = new Enemy();
+            //            GameMatrix[i, k] = new BGround();
+            //        }
+            //    }
+            //}
+            int i = 9;
+            int j = EnemyJ();
+            Enemy e=new Enemy();
+            if (j>0)
+            {
+                if (GameMatrix[i, j-1].Type!="Dome")
+                {
+                    GameMatrix[i, j-1]=e;
+                    GameMatrix[i, j]=new BGround();
+                }
+            }
+            
+        }
+        public int EnemyJ()
+        {
+            int k = 0;
+            for (int j = 0; j < GameMatrix.GetLength(1); j++)
+            {
+                if (GameMatrix[9, j].Type == "Enemy")
+                {
+                    k=j;
+                }
+                
+            }
+            return k;
+        }
+        public void Spawn()
+        {
+            int i = 9;
+            int j = GameMatrix.GetLength(1);
+            Enemy e = new Enemy();
+            GameMatrix[i, j]=e;
+            
+        }
     }
     }

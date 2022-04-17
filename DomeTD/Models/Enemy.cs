@@ -14,15 +14,15 @@ namespace DomeTD.Models
         public string Type
         {
             get { return "Enemy"; }
-            set { SetProperty(ref type, value); }
+            set { type = value; }
         }
 
         private double health;
 
         public double Health
         {
-            get { return health; }
-            set { SetProperty(ref health, value); }
+            get { return 100; }
+            set { health = value; ; }
         }
 
         private double attackDamage;
@@ -30,7 +30,7 @@ namespace DomeTD.Models
         public double AttackDamage
         {
             get { return attackDamage; }
-            set { SetProperty(ref attackDamage, value); }
+            set { attackDamage = value; ; }
         }
 
         private int speed;
@@ -38,7 +38,7 @@ namespace DomeTD.Models
         public int Speed
         {
             get { return speed; }
-            set { SetProperty(ref speed, value); }
+            set { speed = value; ; }
         }
 
         
