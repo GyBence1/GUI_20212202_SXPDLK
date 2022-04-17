@@ -13,6 +13,7 @@ namespace DomeTD.Logic
     public interface IGameModel
     {
         IGameItem[,] GameMatrix { get; set; }
+        List<Enemy> Enemies { get; set; }
     }
 
     public class DomeLogic:IGameModel, IGameControl
@@ -30,6 +31,7 @@ namespace DomeTD.Logic
 
         public DomeLogic()
         {
+
             Inventory = new Inventory();
             levels = new Queue<string>();
             Hero = new MainCharacter();
@@ -54,7 +56,7 @@ namespace DomeTD.Logic
                 }
             }
             Enemies=new List<Enemy>();
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 5; i++)
             {
                 Enemies.Add(Spawn());
             }
@@ -241,19 +243,15 @@ namespace DomeTD.Logic
                     break;
             }
         }
-        public void MoveEnemy(Enemy e)
+        public async void MoveEnemy(Enemy e)
         {
             int i = 9;
-                if (GameMatrix[i, e.J-1].Type!="Dome")
-                {
-                    GameMatrix[i, e.J-1]=e;
-                    e.J--;
-                    GameMatrix[i, e.J+1]=new BGround();
-                }
-
-            
-           
-            
+            if (GameMatrix[i, e.J-1].Type!="Dome")
+            {
+                GameMatrix[i,e.J-1]= e;
+                e.J--;
+                GameMatrix[i, e.J+1]=new BGround();
+            }  
         }
         public int EnemyJ()
         {

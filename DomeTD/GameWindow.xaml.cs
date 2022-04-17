@@ -35,13 +35,17 @@ namespace DomeTD
             InitializeComponent();
             dt2 = new DispatcherTimer();
             dt2.Interval=TimeSpan.FromSeconds(1);
-            dt2.Tick += (sender, eargs) =>
+            dt2.Tick += async(sender, eargs) =>
             {
-                for (int i = 0; i < logic.Enemies.Count; i++)
+                foreach (var e in logic.Enemies)
                 {
-                    logic.MoveEnemy(logic.Enemies[i]);
+                    await Task.Delay(2000);
+                    logic.MoveEnemy(e);
+                    display.InvalidateVisual();
                 }
-                display.InvalidateVisual();
+                    
+               
+                
             };
             time = TimeSpan.FromSeconds(5);
             dt = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate

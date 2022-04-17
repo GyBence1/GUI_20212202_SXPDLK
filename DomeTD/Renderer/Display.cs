@@ -33,8 +33,8 @@ namespace DomeTD.Renderer
             {
                 double rectWidth = size.Width / model.GameMatrix.GetLength(1);
                 double rectHeight = size.Height / model.GameMatrix.GetLength(0);
-                
 
+                ImageBrush enemybrush = new ImageBrush(new BitmapImage(new Uri("Images/enemy.bmp", UriKind.RelativeOrAbsolute)));
                 for (int i = 0; i < model.GameMatrix.GetLength(0); i++)
                 {
                     for (int j = 0; j < model.GameMatrix.GetLength(1); j++)
@@ -68,7 +68,7 @@ namespace DomeTD.Renderer
                                 brush = new ImageBrush
                                     (new BitmapImage(new Uri("Images/character.bmp", UriKind.RelativeOrAbsolute)));
                                 break;
-                            
+
                             case Enemy:
                                 brush = new ImageBrush
                                     (new BitmapImage(new Uri("Images/enemy.bmp", UriKind.RelativeOrAbsolute)));
@@ -92,10 +92,17 @@ namespace DomeTD.Renderer
                         drawingContext.DrawRectangle(domebrush
                                   , new Pen(Brushes.Black, 0),
                                   new Rect(j * rectWidth, i * rectHeight-200, 300,300));
-
+                       
                     }
 
-                } }
+                }
+                //foreach (var item in model.Enemies)
+                //{
+                //    drawingContext.DrawRectangle(enemybrush
+                //           , new Pen(Brushes.Black, 0),
+                //           new Rect(item.J * rectWidth, 9 * rectHeight, rectWidth, rectHeight));
+                //}
+            }
         }
     }
 }
