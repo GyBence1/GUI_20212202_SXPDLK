@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DomeTD.Logic
@@ -16,8 +17,10 @@ namespace DomeTD.Logic
 
     public class DomeLogic:IGameModel, IGameControl
     {
-        IMessenger messenger;
+        public MainCharacter Hero { get; set; }
+        public Dome Dome { get; set; }
         public Inventory Inventory { get; set; }
+        public List<Enemy> Enemies { get; set; }
         public enum Directions
         {
             up, down, left, right
@@ -27,10 +30,11 @@ namespace DomeTD.Logic
 
         public DomeLogic()
         {
-            
             Inventory = new Inventory();
             levels = new Queue<string>();
-            var lvls = Directory.GetFiles(@"C:\Users\Csoza\source\repos\GUI_20212202_SXPDLK\DomeTD\bin\Debug\net5.0-windows\Levels",
+            Hero = new MainCharacter();
+            Dome=new Dome();
+            var lvls = Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "Levels"),
                 "*.lvl");
             foreach (var item in lvls)
             {
@@ -49,7 +53,11 @@ namespace DomeTD.Logic
                     GameMatrix[i, j] = lvlConvert(lines[i][j]);
                 }
             }
-
+            Enemies=new List<Enemy>();
+            for (int i = 0; i < 10; i++)
+            {
+                Enemies.Add(Spawn());
+            }
         }
       
         public IGameItem lvlConvert(char v)
@@ -62,7 +70,9 @@ namespace DomeTD.Logic
                 case 'm': return new Metal();
                 case 'v': return new Vibranium();
                 case 'k': return new BGround();
-                case 'c': return new MainCharacter();
+                case 'c': return Hero;
+                case 'e': return new Enemy();
+                case 'b': return Dome;
                 default: return null;
             }
         }
@@ -120,7 +130,7 @@ namespace DomeTD.Logic
             }
             if (GameMatrix[i, j].Type =="Floor" )
             {
-                GameMatrix[i, j] = new MainCharacter();
+                GameMatrix[i, j] = Hero;
                 GameMatrix[old_i, old_j] = new Floor();
             }
         }
@@ -229,44 +239,33 @@ namespace DomeTD.Logic
                 default:
                     break;
             }
-            ;
         }
-        public void EnemyLogic()
-        {
-            //int i = 9;
-            //int j = GameMatrix.GetLength(1);
-            //int f = GameMatrix.GetLength(1);
-            //while (GameMatrix[i,j].Type != "Dome")
-            //{
-            //    if (GameMatrix[i,f].Type=="Background")
-            //    {
-            //        GameMatrix[i,f] = new Enemy();
-            //    }
-            //    for (int k = 1; k < f ; k++)
-            //    {
-            //        if (GameMatrix[i,k-1].Type == "Background" && GameMatrix[i,k].Type =="Enemy")
-            //        {
-            //            GameMatrix[i, k-1] = new Enemy();
-            //            GameMatrix[i, k] = new BGround();
-            //        }
-            //    }
-            //}
-            //Enemy enemy = new Enemy();
-            //int i = 9;
-            //for (int k = 0; k < 5; k++)
-            //{
-            //    for (int j = GameMatrix.GetLength(1) - 1; j >= 0; j--)
-            //    {
-            //        if (GameMatrix[i, j])
-            //        {
 
-            //        }
-            //    }
-            //}
             
-
+           
+            
         }
-
-       
+        public int EnemyJ()
+        {
+            int k = 0;
+            for (int j = 0; j < GameMatrix.GetLength(1); j++)
+            {
+                if (GameMatrix[9, j].Type == "Enemy")
+                {
+                    k=j;
+                }
+                
+            }
+            return k;
+        }
+        public Enemy Spawn()
+        {
+            int i = 9;
+            int j = GameMatrix.GetLength(1)-1;
+            Enemy e = new Enemy();
+            e.J=j;
+            GameMatrix[i, j]=e;
+            return e;
+        }
     }
     }

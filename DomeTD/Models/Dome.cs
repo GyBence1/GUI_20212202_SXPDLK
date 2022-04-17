@@ -1,5 +1,4 @@
-﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,14 +6,21 @@ using System.Threading.Tasks;
 
 namespace DomeTD.Models
 {
-    public class Weapon : ObservableObject,IGameItem
+    public class Dome:IGameItem
     {
+        private string type;
+
+        public string Type
+        {
+            get { return "Dome"; }
+            set { type = value; }
+        }
         private double attackDamage;
 
         public double AttackDamage
         {
             get { return attackDamage; }
-            set { SetProperty(ref attackDamage, value); }
+            set { attackDamage = value; ; }
         }
 
         private double attackSpeed;
@@ -22,15 +28,14 @@ namespace DomeTD.Models
         public double AttackSpeed
         {
             get { return attackSpeed; }
-            set { SetProperty(ref attackSpeed, value); }
+            set { attackSpeed = value; ; }
         }
+        private int health;
 
-        private string type;
-
-        public string Type
+        public int Health
         {
-            get { return "Weapon"; }
-            set { type = value; }
+            get { return health; }
+            set { health = value; }
         }
 
     }

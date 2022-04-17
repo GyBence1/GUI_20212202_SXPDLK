@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace DomeTD
 {
@@ -23,11 +25,38 @@ namespace DomeTD
     {
         GameController controller;
         IGameModel gameModel;
+        DispatcherTimer dt;
+        DispatcherTimer dt2;
+        TimeSpan time;
+        DomeLogic logic = new DomeLogic();
         public GameWindow()
         {
 
             InitializeComponent();
-            DomeLogic logic = new DomeLogic();
+            dt2 = new DispatcherTimer();
+            dt2.Interval=TimeSpan.FromSeconds(1);
+            dt2.Tick += (sender, eargs) =>
+            {
+                for (int i = 0; i < logic.Enemies.Count; i++)
+                {
+                    logic.MoveEnemy(logic.Enemies[i]);
+                }
+                display.InvalidateVisual();
+            };
+            time = TimeSpan.FromSeconds(5);
+            dt = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
+            {
+                timer.Content = time.ToString("c");
+                if (time == TimeSpan.Zero)
+                {
+                    dt.Stop();
+                    dt2.Start();
+                };
+                time = time.Add(TimeSpan.FromSeconds(-1));
+            }, Application.Current.Dispatcher);
+            dt.Start();
+           
+
             display.SetupModel(logic);
             controller = new GameController(logic);
             Binding dirtbinding = new Binding("Dirt");
@@ -53,6 +82,8 @@ namespace DomeTD
         {
             display.Resize(new Size(grid.ActualWidth, grid.ActualHeight));
             display.InvalidateVisual();
+           
+
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
@@ -62,5 +93,6 @@ namespace DomeTD
             //a.UpdateSource();
             display.InvalidateVisual();
         }
+         
     }
 }

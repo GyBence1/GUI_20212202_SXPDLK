@@ -19,6 +19,7 @@
     <Grid x:Name="grid">
         <StackPanel>
             <Label FontFamily="/Fonts/#Bubblegum" ContentStringFormat="Dirt: {0}" x:Name="dirt"/>
+            <Label FontFamily="/Fonts/#Bubblegum" ContentStringFormat="Remaining time: {0}" x:Name="timer"/>
             <Label FontFamily="/Fonts/#Bubblegum" ContentStringFormat="Metal: {0}" x:Name="metal"/>
             <Label FontFamily="/Fonts/#Bubblegum" ContentStringFormat="Vibranium: {0}" x:Name="vibranium"/>
         </StackPanel>

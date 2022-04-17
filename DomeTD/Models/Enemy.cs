@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace DomeTD.Models
 {
-    public class Enemy : ObservableObject,IGameItem
+    public class Enemy : IGameItem
     {
         private string type;
 
         public string Type
         {
             get { return "Enemy"; }
-            set { SetProperty(ref type, value); }
+            set { type = value; }
         }
 
         private double health;
@@ -22,7 +22,7 @@ namespace DomeTD.Models
         public double Health
         {
             get { return 100; }
-            set { SetProperty(ref health, value); }
+            set { health = value; ; }
         }
 
         private double attackDamage;
@@ -30,7 +30,7 @@ namespace DomeTD.Models
         public double AttackDamage
         {
             get { return attackDamage; }
-            set { SetProperty(ref attackDamage, value); }
+            set { attackDamage = value; ; }
         }
 
         private int speed;
@@ -38,10 +38,17 @@ namespace DomeTD.Models
         public int Speed
         {
             get { return speed; }
-            set { SetProperty(ref speed, value); }
+            set { speed = value; ; }
         }
 
-        
+        private int j;
+
+        public int J
+        {
+            get { return j; }
+            set { j = value; }
+        }
+
 
     }
 }

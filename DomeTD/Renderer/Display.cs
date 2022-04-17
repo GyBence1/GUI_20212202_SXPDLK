@@ -40,6 +40,7 @@ namespace DomeTD.Renderer
                     for (int j = 0; j < model.GameMatrix.GetLength(1); j++)
                     {
                         ImageBrush brush = new ImageBrush();
+                        ImageBrush domebrush = new ImageBrush();
                         SolidColorBrush bgbrush = new SolidColorBrush();
                         switch (model.GameMatrix[i, j])
                         {
@@ -67,13 +68,14 @@ namespace DomeTD.Renderer
                                 brush = new ImageBrush
                                     (new BitmapImage(new Uri("Images/character.bmp", UriKind.RelativeOrAbsolute)));
                                 break;
-                            case Weapon:
-                                brush = new ImageBrush
-                                    (new BitmapImage(new Uri("Images/dirt.bmp", UriKind.RelativeOrAbsolute)));
-                                break;
+                            
                             case Enemy:
                                 brush = new ImageBrush
-                                    (new BitmapImage(new Uri("Images/dirt.bmp", UriKind.RelativeOrAbsolute)));
+                                    (new BitmapImage(new Uri("Images/enemy.bmp", UriKind.RelativeOrAbsolute)));
+                                break;
+                            case Dome:
+                                domebrush = new ImageBrush
+                                    (new BitmapImage(new Uri("Images/dome1.bmp", UriKind.RelativeOrAbsolute)));
                                 break;
                             case BGround:
                                 bgbrush = Brushes.Transparent;
@@ -87,6 +89,9 @@ namespace DomeTD.Renderer
                         drawingContext.DrawRectangle(bgbrush
                                    , new Pen(Brushes.Black, 0),
                                    new Rect(j * rectWidth, i * rectHeight, rectWidth, rectHeight));
+                        drawingContext.DrawRectangle(domebrush
+                                  , new Pen(Brushes.Black, 0),
+                                  new Rect(j * rectWidth, i * rectHeight-200, 300,300));
 
                     }
 
