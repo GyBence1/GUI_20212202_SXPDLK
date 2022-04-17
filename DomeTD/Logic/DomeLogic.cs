@@ -275,5 +275,19 @@ namespace DomeTD.Logic
             GameMatrix[i, j]=e;
             return e;
         }
+
+        public async void Shoot()
+        {
+            Laser l=new Laser();
+            l.J=1;
+            int i = 9;
+            while(GameMatrix[i, l.J+1].Type!="Enemy")
+            {
+                await Task.Delay(100);
+                GameMatrix[i, l.J+1]= l;
+                l.J++;
+                GameMatrix[i, l.J-1]=new BGround();
+            }
+        }
     }
     }

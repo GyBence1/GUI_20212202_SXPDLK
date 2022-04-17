@@ -27,6 +27,7 @@ namespace DomeTD
         IGameModel gameModel;
         DispatcherTimer dt;
         DispatcherTimer dt2;
+        DispatcherTimer dt3;
         TimeSpan time;
         DomeLogic logic = new DomeLogic();
         public GameWindow()
@@ -94,6 +95,16 @@ namespace DomeTD
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             controller.KeyPressed(e.Key);
+            if (e.Key==Key.Space)
+            {
+                dt3=new DispatcherTimer();
+                dt3.Interval =TimeSpan.FromSeconds(1);
+                dt3.Tick += (sender, eargs) =>
+                {
+                        logic.Shoot();
+                        display.InvalidateVisual();
+                };
+            }
             display.InvalidateVisual();
         }
          

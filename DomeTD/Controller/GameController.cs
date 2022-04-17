@@ -33,9 +33,9 @@ namespace DomeTD.Controller
                 case Key.D:
                     control.Move(DomeLogic.Directions.right);
                     break;
-                //case Key.Space:
-                //    control.MoveEnemy();
-                    //break;
+                case Key.Space:
+                    control.Shoot();
+                    break;
             }
             switch (key)
             {

@@ -73,6 +73,10 @@ namespace DomeTD.Renderer
                                 brush = new ImageBrush
                                     (new BitmapImage(new Uri("Images/enemy.bmp", UriKind.RelativeOrAbsolute)));
                                 break;
+                            case Laser:
+                                brush = new ImageBrush
+                                    (new BitmapImage(new Uri("Images/laser.bmp", UriKind.RelativeOrAbsolute)));
+                                break;
                             case Dome:
                                 domebrush = new ImageBrush
                                     (new BitmapImage(new Uri("Images/dome1.bmp", UriKind.RelativeOrAbsolute)));
@@ -96,12 +100,6 @@ namespace DomeTD.Renderer
                     }
 
                 }
-                //foreach (var item in model.Enemies)
-                //{
-                //    drawingContext.DrawRectangle(enemybrush
-                //           , new Pen(Brushes.Black, 0),
-                //           new Rect(item.J * rectWidth, 9 * rectHeight, rectWidth, rectHeight));
-                //}
             }
         }
     }
