@@ -19,28 +19,50 @@ namespace DomeTD.Models
     //        handler?.Invoke(this, new PropertyChangedEventArgs(s));
     //    }
     //}
-    public class Inventory:ObservableObject
+    public class Inventory:INotifyPropertyChanged
     {
         private int dirt;
 
         public int Dirt
         {
             get { return dirt; }
-            set { SetProperty(ref dirt, value); }
+            set
+            {
+                dirt = value;
+                OnPropertyChanged("Dirt");
+            }
         }
         private int metal;
 
         public int Metal
         {
             get { return metal; }
-            set { SetProperty(ref metal, value); }
+            set
+            {
+                metal = value;
+                OnPropertyChanged("Metal");
+            }
         }
         private int vibranium;
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        private void OnPropertyChanged(string info)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(info));
+            }
+        }
 
         public int Vibranium
         {
             get { return vibranium; }
-            set { SetProperty(ref vibranium, value); }
+            set
+            {
+                vibranium = value;
+                OnPropertyChanged("Vibranium");
+            }
         }
 
 

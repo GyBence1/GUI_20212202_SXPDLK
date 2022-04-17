@@ -25,12 +25,12 @@ namespace DomeTD
         IGameModel gameModel;
         public GameWindow()
         {
-
+           
             InitializeComponent();
             DomeLogic logic = new DomeLogic();
             display.SetupModel(logic);
             controller = new GameController(logic);
-            Binding dirtbinding = new Binding("Dirt");
+            Binding dirtbinding=new Binding("Dirt");
             dirtbinding.Source = logic.Inventory;
             dirt.SetBinding(Label.ContentProperty, dirtbinding);
 
@@ -41,6 +41,7 @@ namespace DomeTD
             Binding vibbinding = new Binding("Vibranium");
             vibbinding.Source = logic.Inventory;
             vibranium.SetBinding(Label.ContentProperty, vibbinding);
+
         }
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -58,8 +59,6 @@ namespace DomeTD
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             controller.KeyPressed(e.Key);
-            //var a = dirt.GetBindingExpression(Label.ContentProperty);
-            //a.UpdateSource();
             display.InvalidateVisual();
         }
     }
