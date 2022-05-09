@@ -40,6 +40,7 @@ namespace DomeTD
             cdisplay.InvalidateVisual();
             controller = new GameController(logic);
             display.SetupModel(logic);
+
             Binding dirtbinding = new Binding("Dirt");
             dirtbinding.Source = logic.Inventory;
             dirt.SetBinding(Label.ContentProperty, dirtbinding);
@@ -51,6 +52,15 @@ namespace DomeTD
             Binding vibbinding = new Binding("Vibranium");
             vibbinding.Source = logic.Inventory;
             vibranium.SetBinding(Label.ContentProperty, vibbinding);
+
+            Binding drillbinding = new Binding("DrillingPower");
+            drillbinding.Source = logic.Hero;
+            drill.SetBinding(Label.ContentProperty, drillbinding);
+
+            Binding drillupg = new Binding("DrillingpowerupgCost");
+            drillupg.Source = logic.Hero;
+            drillupgrade.SetBinding(Button.ContentProperty, drillupg);
+
             display.InvalidateVisual();
             cdisplay.InvalidateVisual();
             
@@ -66,6 +76,15 @@ namespace DomeTD
         {
             display.Resize(new Size(grid.ActualWidth, grid.ActualHeight));
             clogic=new CanvasLogic(canvas.ActualWidth, canvas.ActualHeight);
+
+            Binding attackpower = new Binding("CurrentDMG");
+            attackpower.Source = clogic;
+            weapon.SetBinding(Label.ContentProperty, attackpower);
+
+            Binding wpupg = new Binding("WeaponUpgradeCost");
+            wpupg.Source = clogic;
+            wpupgrade.SetBinding(Button.ContentProperty, wpupg);
+
             cdisplay.SetupModel(clogic);
             display.InvalidateVisual();
             cdisplay.InvalidateVisual();
@@ -127,6 +146,48 @@ namespace DomeTD
             display.InvalidateVisual();
             cdisplay.InvalidateVisual();
         }
-         
+
+        private void weaponbutton_Click(object sender, RoutedEventArgs e)
+        {
+            
+            if (logic.Inventory.Metal >= clogic.WeaponUpgradeCost)
+            {
+                logic.Inventory.Metal -= clogic.WeaponUpgradeCost;
+                if (clogic.Lasers.Count != 0)
+                {
+                    for (int i = 0; i < clogic.Lasers.Count; i++)
+                    {
+                        clogic.Lasers[i].AttackDamage++;
+                    }
+                    clogic.CurrentDMG = clogic.Lasers[0].AttackDamage;
+                    clogic.WeaponUpgradeCost++;
+                    display.InvalidateVisual();
+                    cdisplay.InvalidateVisual();
+                }
+                else
+                {
+                    clogic.CurrentDMG++;
+                    clogic.WeaponUpgradeCost++;
+                    display.InvalidateVisual();
+                    cdisplay.InvalidateVisual();
+                }
+            }
+            
+
+
+        }
+
+        private void drillbutton_Click(object sender, RoutedEventArgs e)
+        {
+            if (logic.Inventory.Metal >= logic.Hero.DrillingpowerupgCost)
+            {
+                logic.Hero.DrillingPower++;
+                logic.Inventory.Metal -= logic.Hero.DrillingpowerupgCost;
+                logic.Hero.DrillingpowerupgCost++;
+                display.InvalidateVisual();
+                cdisplay.InvalidateVisual();
+            }
+
+        }
     }
 }

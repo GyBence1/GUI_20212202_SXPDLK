@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,15 +9,18 @@ using System.Windows.Media;
 
 namespace DomeTD.Models
 {
-    public class Laser:CanvasItem
+    public class Laser:CanvasItem , INotifyPropertyChanged
     {
         private double attackDamage;
 
         public double AttackDamage
         {
             get { return attackDamage; }
-            set { attackDamage = value; }
+            set { attackDamage = value; OnPropertyChanged("AttackDamage"); }
         }
+
+
+
         private double attackSpeed;
 
         public double AttackSpeed
@@ -40,6 +44,15 @@ namespace DomeTD.Models
             get
             {
                 return new RectangleGeometry(new Rect(posX,posY, 20, 20));
+            }
+        }
+        public event PropertyChangedEventHandler? PropertyChanged;
+        private void OnPropertyChanged(string info)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(info));
             }
         }
     }

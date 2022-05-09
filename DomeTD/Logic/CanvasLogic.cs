@@ -1,6 +1,7 @@
 ﻿using DomeTD.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,13 +14,28 @@ namespace DomeTD.Logic
         List<Laser> Lasers { get; set; }
         List<Enemy> Enemies { get; set; }
     }
-    public class CanvasLogic : ICanvasItem
+    public class CanvasLogic : ICanvasItem, INotifyPropertyChanged
     {
         private double areaHeight;
         private double areaWidth;
         public Dome Dome { get; set; }
         public List<Laser> Lasers { get; set; }
         public List<Enemy> Enemies { get; set; }
+        private double currentDMG;
+
+        public double CurrentDMG
+        {
+            get { return currentDMG; }
+            set { currentDMG = value; OnPropertyChanged("currentDMG"); }
+        }
+
+        private int weaponUpgradeCost;
+
+        public int WeaponUpgradeCost
+        {
+            get { return weaponUpgradeCost; }
+            set { weaponUpgradeCost = value; OnPropertyChanged("WeaponUpgradeCost"); }
+        }
         public CanvasLogic(double areaWidth,double areaHeight)
         {
             this.areaWidth=areaWidth;
@@ -27,8 +43,20 @@ namespace DomeTD.Logic
             Dome=new Dome(0,areaHeight);
             Enemies=new List<Enemy>();
             Lasers=new List<Laser>();
+            currentDMG = 5;
+            weaponUpgradeCost = 1;
             
         }
+        public event PropertyChangedEventHandler? PropertyChanged;
+        private void OnPropertyChanged(string info)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(info));
+            }
+        }
+
         public void NewEnemy()
         {
             Enemies.Add(new Enemy(areaWidth,areaHeight));
@@ -41,6 +69,7 @@ namespace DomeTD.Logic
                 NewEnemy();
             }
         }
+
         public void MoveEnemy()
         {
             for (int i = 0; i < Enemies.Count; i++)

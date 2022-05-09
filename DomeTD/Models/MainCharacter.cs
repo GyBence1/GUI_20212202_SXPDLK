@@ -18,7 +18,7 @@ namespace DomeTD.Models
         }
         private double drillingpower;
 
-        public double Drillingpower
+        public double DrillingPower
         {
             get { return drillingpower; }
             set { SetProperty( ref drillingpower , value); }
@@ -29,6 +29,15 @@ namespace DomeTD.Models
         {
             get { return speed; }
             set { SetProperty( ref speed ,value); }
+        }
+
+
+        private int drillingpowerupgCost;
+
+        public int DrillingpowerupgCost
+        {
+            get { return drillingpowerupgCost; }
+            set { SetProperty( ref drillingpowerupgCost, value); }
         }
 
     }
