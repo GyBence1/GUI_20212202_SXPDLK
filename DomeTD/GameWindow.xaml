@@ -4,25 +4,32 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DomeTD"
-        xmlns:logic="clr-namespace:DomeTD.Logic"
-        xmlns:inv="clr-namespace:DomeTD.Models"
         xmlns:renderer="clr-namespace:DomeTD.Renderer"
         mc:Ignorable="d"
         Title="GameWindow" Height="450" Width="800" WindowState="Maximized" WindowStyle="None" KeyDown="Window_KeyDown" SizeChanged="Window_SizeChanged" Loaded="Window_Loaded">
     <Window.Background>
         <ImageBrush ImageSource="/Images/gamebg.jpg"/>
     </Window.Background>
-    <Window.DataContext>
-        
-        <inv:Inventory></inv:Inventory>
-    </Window.DataContext>
-    <Grid x:Name="grid">
-        <StackPanel>
-            <Label FontFamily="/Fonts/#Bubblegum" ContentStringFormat="Dirt: {0}" x:Name="dirt"/>
-            <Label FontFamily="/Fonts/#Bubblegum" ContentStringFormat="Remaining time: {0}" x:Name="timer"/>
-            <Label FontFamily="/Fonts/#Bubblegum" ContentStringFormat="Metal: {0}" x:Name="metal"/>
-            <Label FontFamily="/Fonts/#Bubblegum" ContentStringFormat="Vibranium: {0}" x:Name="vibranium"/>
-        </StackPanel>
-        <renderer:Display x:Name="display"/>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Canvas Grid.Row="0" x:Name="canvas">
+            <Label FontFamily="/Fonts/#Bubblegum" ContentStringFormat="Dirt: {0}" x:Name="dirt" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <Label FontFamily="/Fonts/#Bubblegum" ContentStringFormat="Remaining time: {0}" x:Name="timer" Canvas.Left="746" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <Label FontFamily="/Fonts/#Bubblegum" ContentStringFormat="Metal: {0}" x:Name="metal" Canvas.Left="482" Canvas.Top="-5"/>
+            <Label FontFamily="/Fonts/#Bubblegum" ContentStringFormat="Vibranium: {0}" x:Name="vibranium" HorizontalAlignment="Left" Canvas.Left="234" VerticalAlignment="Center"/>
+            <Label FontFamily="/Fonts/#Bubblegum" ContentStringFormat="Weapon Power: {0}" x:Name="weapon"  Canvas.Left="42" Canvas.Top="143"/>
+            <Label FontFamily="/Fonts/#Bubblegum" ContentStringFormat="Drill Power: {0}" x:Name="drill"  Canvas.Left="42" Canvas.Top="102"/>
+            <Button FontFamily="/Fonts/#Bubblegum" ContentStringFormat="Weapon Upgrade Cost: {0} metal" x:Name="wpupgrade" Height="70" Width="200" Margin="5" Click="weaponbutton_Click" IsEnabled="True" Canvas.Left="364" Canvas.Top="78"/>
+            <Button FontFamily="/Fonts/#Bubblegum" ContentStringFormat="Drill Upgrade Cost: {0} metal" x:Name="drillupgrade" Height="70" Width="200" Margin="5" Click="drillbutton_Click" Canvas.Left="576" Canvas.Top="78"/>
+           
+            <renderer:CanvasDisplay x:Name="cdisplay"/>
+        </Canvas>
+        <Grid x:Name="grid" Grid.Row="1">
+            <renderer:Display x:Name="display"/>
+        </Grid>
     </Grid>
+
 </Window>

@@ -1,42 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace DomeTD.Models
 {
-    public class Dome:IGameItem
+    public class Dome:CanvasItem
     {
-        private string type;
-
-        public string Type
-        {
-            get { return "Dome"; }
-            set { type = value; }
-        }
-        private double attackDamage;
-
-        public double AttackDamage
-        {
-            get { return attackDamage; }
-            set { attackDamage = value; ; }
-        }
-
-        private double attackSpeed;
-
-        public double AttackSpeed
-        {
-            get { return attackSpeed; }
-            set { attackSpeed = value; ; }
-        }
         private int health;
 
         public int Health
         {
-            get { return health; }
+            get { return 100; }
             set { health = value; }
         }
+        public double canvaswidth { get; set; }
+        public double canvasheight { get; set; }
 
+        public Dome(double canvaswidth, double canvasheight)
+        {
+            this.canvaswidth=canvaswidth;
+            this.canvasheight=canvasheight;
+        }
+
+        public override Geometry Area
+        {
+            get
+            {
+                return new RectangleGeometry(new Rect(0,canvasheight-163,200,200));
+            }
+        }
     }
 }
