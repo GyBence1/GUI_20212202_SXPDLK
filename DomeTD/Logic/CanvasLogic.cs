@@ -147,6 +147,10 @@ namespace DomeTD.Logic
                     }
                 }
             }
+            else
+            {
+                Enemies.Clear();
+            }
         }
     }
 }
