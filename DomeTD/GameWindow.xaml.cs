@@ -75,7 +75,7 @@ namespace DomeTD
         {
             display.Resize(new Size(grid.ActualWidth, grid.ActualHeight));
             clogic=new CanvasLogic(canvas.ActualWidth, canvas.ActualHeight);
-           
+            clogic.GameOver+=Clogic_GameOver;
             Binding attackpower = new Binding("CurrentDMG");
             attackpower.Source = clogic;
             weapon.SetBinding(Label.ContentProperty, attackpower);
@@ -84,13 +84,17 @@ namespace DomeTD
             wpupg.Source = clogic;
             wpupgrade.SetBinding(Button.ContentProperty, wpupg);
 
+            Binding domehp = new Binding("Health");
+            domehp.Source = clogic.Dome;
+            hp.SetBinding(Label.ContentProperty, domehp);
+
             cdisplay.SetupModel(clogic);
             display.InvalidateVisual();
             cdisplay.InvalidateVisual();
             dt4=new DispatcherTimer();
             dt4.Interval=TimeSpan.FromSeconds(3);
             dt3=new DispatcherTimer();
-            dt3.Interval=TimeSpan.FromMilliseconds(200);
+            dt3.Interval=TimeSpan.FromMilliseconds(100);
             dt4.Tick +=(sender, eargs) =>
             {
                 clogic.AddLaser();
@@ -110,7 +114,7 @@ namespace DomeTD
                 }
             };
             dt2 = new DispatcherTimer();
-            dt2.Interval=TimeSpan.FromMilliseconds(500);
+            dt2.Interval=TimeSpan.FromMilliseconds(300);
             dt2.Tick +=(sender, eargs) =>
             {
                 for (int i = 0; i < clogic.Enemies.Count; i++)
@@ -134,6 +138,17 @@ namespace DomeTD
                 time = time.Add(TimeSpan.FromSeconds(-1));
             }, Application.Current.Dispatcher);
         }
+
+        private void Clogic_GameOver(object? sender, EventArgs e)
+        {
+            var result = MessageBox.Show("Game Over");
+            if (result == MessageBoxResult.OK)
+            {
+                new MainWindow().Show();
+                this.Close();
+            }
+        }
+
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             controller.KeyPressed(e.Key);

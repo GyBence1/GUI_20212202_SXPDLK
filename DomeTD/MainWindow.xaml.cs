@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,7 +27,7 @@ namespace DomeTD
             InitializeComponent();
             player.Open(new Uri(string.Format("{0}\\bgmusic.mp3", AppDomain.CurrentDomain.BaseDirectory)));
             player.MediaEnded+=Player_MediaEnded;
-            player.Volume=0.20;
+            player.Volume=0.05;
             player.Play();
 
         }
@@ -39,7 +40,6 @@ namespace DomeTD
         private void NewGame_Click(object sender, RoutedEventArgs e)
         {
             new GameWindow().Show();
-            player.Stop();
             this.Close();
 
         }

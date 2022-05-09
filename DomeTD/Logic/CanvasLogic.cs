@@ -18,6 +18,7 @@ namespace DomeTD.Logic
     {
         private double areaHeight;
         private double areaWidth;
+        public event EventHandler GameOver;
         public Dome Dome { get; set; }
         public List<Laser> Lasers { get; set; }
         public List<Enemy> Enemies { get; set; }
@@ -45,9 +46,10 @@ namespace DomeTD.Logic
             Dome=new Dome(0,areaHeight);
             Enemies=new List<Enemy>();
             Lasers=new List<Laser>();
-            currentDMG = 5;
+            currentDMG = 1;
             weaponUpgradeCost = 1;
             difficulty = 1;
+            Dome.Health=100;
         }
         public event PropertyChangedEventHandler? PropertyChanged;
         private void OnPropertyChanged(string info)
@@ -75,30 +77,6 @@ namespace DomeTD.Logic
 
         public void MoveEnemy()
         {
-            //for (int i = 0; i < Enemies.Count; i++)
-            //{
-            //    if (!Enemies[i].IsCollision(Dome))
-            //    {
-            //        Enemies[i].posX-=10;
-            //        foreach (var item in Lasers.ToList())
-            //        {
-            //            if (item.IsCollision(Enemies[i]))
-            //            {
-            //                Lasers.Remove(item);
-            //                Enemies[i].Health-=currentDMG*10;
-            //                if (Enemies[i].Health<=0)
-            //                {
-            //                    Enemies.Remove(Enemies[i]);
-            //                }
-            //            }
-            //        }
-            //    }
-            //    else
-            //    {
-            //        Enemies.Remove(Enemies[i]);
-            //    }
-
-            //}
             for (int i = 0; i < Enemies.Count; i++)
             {
                 if (!Enemies[i].IsCollision(Dome))
@@ -108,6 +86,12 @@ namespace DomeTD.Logic
                 else
                 {
                     Enemies.Remove(Enemies[i]);
+                    Dome.Health-=10;
+                    if (Dome.Health<=0)
+                    {
+                        GameOver?.Invoke(this, null);
+                        ;
+                    }
                 }
             }
         }

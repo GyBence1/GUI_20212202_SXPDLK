@@ -24,7 +24,7 @@
             <Label FontFamily="/Fonts/#Bubblegum" ContentStringFormat="Drill Power: {0}" x:Name="drill"  Canvas.Left="42" Canvas.Top="102"/>
             <Button FontFamily="/Fonts/#Bubblegum" ContentStringFormat="Weapon Upgrade Cost: {0} metal" x:Name="wpupgrade" Height="70" Width="200" Margin="5" Click="weaponbutton_Click" IsEnabled="True" Canvas.Left="364" Canvas.Top="78"/>
             <Button FontFamily="/Fonts/#Bubblegum" ContentStringFormat="Drill Upgrade Cost: {0} metal" x:Name="drillupgrade" Height="70" Width="200" Margin="5" Click="drillbutton_Click" Canvas.Left="576" Canvas.Top="78"/>
-           
+            <Label FontFamily="/Fonts/#Bubblegum" ContentStringFormat="Dome Health: {0}" x:Name="hp"  Canvas.Left="24" Canvas.Top="250"/>
             <renderer:CanvasDisplay x:Name="cdisplay"/>
         </Canvas>
         <Grid x:Name="grid" Grid.Row="1">
