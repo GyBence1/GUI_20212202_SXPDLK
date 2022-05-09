@@ -52,7 +52,7 @@ namespace DomeTD.Logic
         private void LoadNext(string path)
         {
             string[] lines = File.ReadAllLines(path);
-            GameMatrix = new IGameItem[30,50];
+            GameMatrix = new IGameItem[20,50];
             for (int i = 0; i < GameMatrix.GetLength(0); i++)
             {
                 for (int j = 0; j < GameMatrix.GetLength(1); j++)
