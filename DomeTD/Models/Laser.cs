@@ -9,18 +9,8 @@ using System.Windows.Media;
 
 namespace DomeTD.Models
 {
-    public class Laser:CanvasItem , INotifyPropertyChanged
+    public class Laser:CanvasItem 
     {
-        private double attackDamage;
-
-        public double AttackDamage
-        {
-            get { return attackDamage; }
-            set { attackDamage = value; OnPropertyChanged("AttackDamage"); }
-        }
-
-
-
         private double attackSpeed;
 
         public double AttackSpeed
@@ -36,7 +26,6 @@ namespace DomeTD.Models
             this.posX=posX;
             this.posY=posY;
             this.AttackSpeed=1;
-            this.AttackDamage=5;
         }
 
         public override Geometry Area
@@ -44,15 +33,6 @@ namespace DomeTD.Models
             get
             {
                 return new RectangleGeometry(new Rect(posX,posY, 20, 20));
-            }
-        }
-        public event PropertyChangedEventHandler? PropertyChanged;
-        private void OnPropertyChanged(string info)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(info));
             }
         }
     }

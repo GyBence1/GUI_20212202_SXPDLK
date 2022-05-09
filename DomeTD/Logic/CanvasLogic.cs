@@ -22,6 +22,7 @@ namespace DomeTD.Logic
         public List<Laser> Lasers { get; set; }
         public List<Enemy> Enemies { get; set; }
         private double currentDMG;
+        public int difficulty { get; set; }
 
         public double CurrentDMG
         {
@@ -36,6 +37,7 @@ namespace DomeTD.Logic
             get { return weaponUpgradeCost; }
             set { weaponUpgradeCost = value; OnPropertyChanged("WeaponUpgradeCost"); }
         }
+
         public CanvasLogic(double areaWidth,double areaHeight)
         {
             this.areaWidth=areaWidth;
@@ -45,7 +47,7 @@ namespace DomeTD.Logic
             Lasers=new List<Laser>();
             currentDMG = 5;
             weaponUpgradeCost = 1;
-            
+            difficulty = 1;
         }
         public event PropertyChangedEventHandler? PropertyChanged;
         private void OnPropertyChanged(string info)
@@ -63,11 +65,12 @@ namespace DomeTD.Logic
         }
         public async void SpawnEnemies()
         {
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < difficulty; i++)
             {
-                await Task.Delay(1000);
+                await Task.Delay(2000);
                 NewEnemy();
             }
+           difficulty++;
         }
 
         public void MoveEnemy()
@@ -77,16 +80,29 @@ namespace DomeTD.Logic
                 if (!Enemies[i].IsCollision(Dome))
                 {
                     Enemies[i].posX-=10;
+                    foreach (var item in Lasers.ToList())
+                    {
+                        if (Enemies[i].IsCollision(item))
+                        {
+                            Lasers.Remove(item);
+                            Enemies[i].Health-=currentDMG*10;
+                            if (Enemies[i].Health<=0)
+                            {
+                                Enemies.Remove(Enemies[i]);
+                            }
+                        }
+                    }
                 }
                 else
                 {
                     Enemies.Remove(Enemies[i]);
                 }
+                
             }
         }
         public void AddLaser()
         {
-            if (Enemies.Count>0)
+            if (true)
             {
                 Lasers.Add(new Laser(Dome.Area.Bounds.Right, Dome.Area.Bounds.Bottom-(Dome.Area.Bounds.Size.Height/2)+15));
             }
@@ -97,26 +113,10 @@ namespace DomeTD.Logic
             {
                 for (int i = 0; i < Lasers.Count; i++)
                 {
-                    Lasers[i].posX+=Lasers[i].AttackSpeed;
-                    for (int j = 0; j < Enemies.Count; j++)
-                    {
-                        if (Lasers[i].IsCollision(Enemies[j]))
-                        {
-                            if (Enemies[j].Health>0)
-                            {
-                                Enemies[j].Health-=Lasers[i].AttackDamage*10;
-                                ;
-                            }
-                            else
-                            {
-                                Enemies.RemoveAt(j);
-                            }
-                            Lasers.RemoveAt(i);
-                        }
-                    }
+                    Lasers[i].posX+=10*Lasers[i].AttackSpeed;
+                    
                 }
             }
-           
         }
     }
 }

@@ -23,8 +23,6 @@ namespace DomeTD
     /// </summary>
     public partial class GameWindow : Window
     {
-        public double height;
-        public double width;
         GameController controller;
         DispatcherTimer dt;
         DispatcherTimer dt2;
@@ -39,6 +37,7 @@ namespace DomeTD
             InitializeComponent();
             cdisplay.InvalidateVisual();
             controller = new GameController(logic);
+            
             display.SetupModel(logic);
 
             Binding dirtbinding = new Binding("Dirt");
@@ -76,7 +75,7 @@ namespace DomeTD
         {
             display.Resize(new Size(grid.ActualWidth, grid.ActualHeight));
             clogic=new CanvasLogic(canvas.ActualWidth, canvas.ActualHeight);
-
+           
             Binding attackpower = new Binding("CurrentDMG");
             attackpower.Source = clogic;
             weapon.SetBinding(Label.ContentProperty, attackpower);
@@ -91,34 +90,34 @@ namespace DomeTD
             dt4=new DispatcherTimer();
             dt4.Interval=TimeSpan.FromSeconds(3);
             dt3=new DispatcherTimer();
-            dt3.Interval=TimeSpan.FromMilliseconds(1);
+            dt3.Interval=TimeSpan.FromMilliseconds(100);
             dt4.Tick +=(sender, eargs) =>
             {
-                    clogic.AddLaser();
-                    dt3.Tick +=(sender, eargs) =>
-                    {
-                        if (clogic.Enemies.Count>0)
-                        {
-                            clogic.Shoot();
-                            cdisplay.InvalidateVisual();
-                        }
-                        else
-                        {
-                            clogic.Lasers.Clear();
-                            cdisplay.InvalidateVisual();
-                            dt4.Stop();
-                            dt3.Stop();
-                        }
-                    };
-                    cdisplay.InvalidateVisual();
+                clogic.AddLaser();
+                dt3.Tick +=(sender, eargs) =>
+                {
+                        clogic.Shoot();
+                        cdisplay.InvalidateVisual();
+                };
+                cdisplay.InvalidateVisual();
+                if (clogic.Enemies.Count<=0)
+                {
+                    clogic.Enemies.Clear();
+                    clogic.Lasers.Clear();
+                    dt3.Stop();
+                    dt4.Stop();
+                    time=TimeSpan.FromSeconds(5);
+                    dt.Start();
+                }
             };
             dt2 = new DispatcherTimer();
-            dt2.Interval=TimeSpan.FromMilliseconds(200);
+            dt2.Interval=TimeSpan.FromMilliseconds(500);
             dt2.Tick +=(sender, eargs) =>
             {
                 for (int i = 0; i < clogic.Enemies.Count; i++)
                 {
                     clogic.MoveEnemy();
+                    cdisplay.InvalidateVisual();
                 }
             };
             time = TimeSpan.FromSeconds(5);
@@ -129,20 +128,17 @@ namespace DomeTD
                 {
                     dt.Stop();
                     dt2.Start();
-                    clogic.NewEnemy();
                     dt3.Start();
                     dt4.Start();
+                    clogic.SpawnEnemies();
                 };
                 time = time.Add(TimeSpan.FromSeconds(-1));
             }, Application.Current.Dispatcher);
-            dt.Start();
         }
-
-       
-
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             controller.KeyPressed(e.Key);
+           
             display.InvalidateVisual();
             cdisplay.InvalidateVisual();
         }
@@ -152,29 +148,11 @@ namespace DomeTD
             
             if (logic.Inventory.Metal >= clogic.WeaponUpgradeCost)
             {
-                logic.Inventory.Metal -= clogic.WeaponUpgradeCost;
-                if (clogic.Lasers.Count != 0)
-                {
-                    for (int i = 0; i < clogic.Lasers.Count; i++)
-                    {
-                        clogic.Lasers[i].AttackDamage++;
-                    }
-                    clogic.CurrentDMG = clogic.Lasers[0].AttackDamage;
-                    clogic.WeaponUpgradeCost++;
-                    display.InvalidateVisual();
-                    cdisplay.InvalidateVisual();
-                }
-                else
-                {
                     clogic.CurrentDMG++;
                     clogic.WeaponUpgradeCost++;
                     display.InvalidateVisual();
                     cdisplay.InvalidateVisual();
-                }
             }
-            
-
-
         }
 
         private void drillbutton_Click(object sender, RoutedEventArgs e)
