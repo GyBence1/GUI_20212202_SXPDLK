@@ -67,7 +67,7 @@ namespace DomeTD.Logic
         {
             for (int i = 0; i < difficulty; i++)
             {
-                await Task.Delay(2000);
+                await Task.Delay(5000);
                 NewEnemy();
             }
            difficulty++;
@@ -75,30 +75,25 @@ namespace DomeTD.Logic
 
         public void MoveEnemy()
         {
-            for (int i = 0; i < Enemies.Count; i++)
+            if (Enemies.Count!=0)
             {
-                if (!Enemies[i].IsCollision(Dome))
+                for (int i = 0; i < Enemies.Count; i++)
                 {
-                    Enemies[i].posX-=10;
-                    foreach (var item in Lasers.ToList())
+                    if (!Enemies[i].IsCollision(Dome))
                     {
-                        if (Enemies[i].IsCollision(item))
-                        {
-                            Lasers.Remove(item);
-                            Enemies[i].Health-=currentDMG*10;
-                            if (Enemies[i].Health<=0)
-                            {
-                                Enemies.Remove(Enemies[i]);
-                            }
-                        }
+                        Enemies[i].posX-=10;
+                    }
+                    else
+                    {
+                        Enemies.Remove(Enemies[i]);
                     }
                 }
-                else
-                {
-                    Enemies.Remove(Enemies[i]);
-                }
-                
             }
+            else
+            {
+                Enemies.Clear();
+            }
+            
         }
         public void AddLaser()
         {
@@ -111,10 +106,21 @@ namespace DomeTD.Logic
         {
             if (Enemies.Count>0)
             {
-                for (int i = 0; i < Lasers.Count; i++)
+                foreach (var item in Lasers.ToList())
                 {
-                    Lasers[i].posX+=10*Lasers[i].AttackSpeed;
-                    
+                    item.posX+=item.AttackSpeed*10;
+                    foreach (var other in Enemies.ToList())
+                    {
+                        if (item.IsCollision(other))
+                        {
+                            Lasers.Remove(item);
+                            other.Health-=currentDMG*10;
+                            if (other.Health<=0)
+                            {
+                                Enemies.Remove(other);
+                            }
+                        }
+                    }
                 }
             }
         }

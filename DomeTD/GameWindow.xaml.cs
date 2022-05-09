@@ -90,7 +90,7 @@ namespace DomeTD
             dt4=new DispatcherTimer();
             dt4.Interval=TimeSpan.FromSeconds(3);
             dt3=new DispatcherTimer();
-            dt3.Interval=TimeSpan.FromMilliseconds(100);
+            dt3.Interval=TimeSpan.FromMilliseconds(200);
             dt4.Tick +=(sender, eargs) =>
             {
                 clogic.AddLaser();
@@ -102,7 +102,6 @@ namespace DomeTD
                 cdisplay.InvalidateVisual();
                 if (clogic.Enemies.Count<=0)
                 {
-                    clogic.Enemies.Clear();
                     clogic.Lasers.Clear();
                     dt3.Stop();
                     dt4.Stop();
