@@ -148,6 +148,7 @@ namespace DomeTD
             if (logic.Inventory.Metal >= clogic.WeaponUpgradeCost)
             {
                     clogic.CurrentDMG++;
+                    logic.Inventory.Metal-= clogic.WeaponUpgradeCost;
                     clogic.WeaponUpgradeCost++;
                     display.InvalidateVisual();
                     cdisplay.InvalidateVisual();

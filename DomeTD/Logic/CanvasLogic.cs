@@ -67,7 +67,7 @@ namespace DomeTD.Logic
         {
             for (int i = 0; i < difficulty; i++)
             {
-                await Task.Delay(5000);
+                await Task.Delay(2000);
                 NewEnemy();
             }
            difficulty++;
@@ -75,25 +75,41 @@ namespace DomeTD.Logic
 
         public void MoveEnemy()
         {
-            if (Enemies.Count!=0)
+            //for (int i = 0; i < Enemies.Count; i++)
+            //{
+            //    if (!Enemies[i].IsCollision(Dome))
+            //    {
+            //        Enemies[i].posX-=10;
+            //        foreach (var item in Lasers.ToList())
+            //        {
+            //            if (item.IsCollision(Enemies[i]))
+            //            {
+            //                Lasers.Remove(item);
+            //                Enemies[i].Health-=currentDMG*10;
+            //                if (Enemies[i].Health<=0)
+            //                {
+            //                    Enemies.Remove(Enemies[i]);
+            //                }
+            //            }
+            //        }
+            //    }
+            //    else
+            //    {
+            //        Enemies.Remove(Enemies[i]);
+            //    }
+
+            //}
+            for (int i = 0; i < Enemies.Count; i++)
             {
-                for (int i = 0; i < Enemies.Count; i++)
+                if (!Enemies[i].IsCollision(Dome))
                 {
-                    if (!Enemies[i].IsCollision(Dome))
-                    {
-                        Enemies[i].posX-=10;
-                    }
-                    else
-                    {
-                        Enemies.Remove(Enemies[i]);
-                    }
+                    Enemies[i].posX -= 10;
+                }
+                else
+                {
+                    Enemies.Remove(Enemies[i]);
                 }
             }
-            else
-            {
-                Enemies.Clear();
-            }
-            
         }
         public void AddLaser()
         {
@@ -106,19 +122,27 @@ namespace DomeTD.Logic
         {
             if (Enemies.Count>0)
             {
+                //for (int i = 0; i < Lasers.Count; i++)
+                //{
+                //    Lasers[i].posX+=10*Lasers[i].AttackSpeed;
+
+                //}
                 foreach (var item in Lasers.ToList())
                 {
-                    item.posX+=item.AttackSpeed*10;
-                    foreach (var other in Enemies.ToList())
+                    item.posX += 10 * item.AttackSpeed;
+                    foreach (var asd in Enemies.ToList())
                     {
-                        if (item.IsCollision(other))
+                        if (item.IsCollision(asd))
                         {
-                            Lasers.Remove(item);
-                            other.Health-=currentDMG*10;
-                            if (other.Health<=0)
+                            if (asd.Health>0)
                             {
-                                Enemies.Remove(other);
+                                asd.Health -= currentDMG * 10;
                             }
+                            else
+                            {
+                                Enemies.Remove(asd);
+                            }
+                            Lasers.Remove(item);
                         }
                     }
                 }
