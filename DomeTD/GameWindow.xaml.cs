@@ -23,18 +23,50 @@ namespace DomeTD
     /// </summary>
     public partial class GameWindow : Window
     {
+        public double height;
+        public double width;
         GameController controller;
-        IGameModel gameModel;
         DispatcherTimer dt;
         DispatcherTimer dt2;
         DispatcherTimer dt3;
         TimeSpan time;
         DomeLogic logic = new DomeLogic();
-        CanvasLogic clogic = new CanvasLogic();
+        CanvasLogic clogic;
         public GameWindow()
         {
            
             InitializeComponent();
+            cdisplay.InvalidateVisual();
+            controller = new GameController(logic);
+            display.SetupModel(logic);
+            Binding dirtbinding = new Binding("Dirt");
+            dirtbinding.Source = logic.Inventory;
+            dirt.SetBinding(Label.ContentProperty, dirtbinding);
+
+            Binding metalbinding = new Binding("Metal");
+            metalbinding.Source = logic.Inventory;
+            metal.SetBinding(Label.ContentProperty, metalbinding);
+
+            Binding vibbinding = new Binding("Vibranium");
+            vibbinding.Source = logic.Inventory;
+            vibranium.SetBinding(Label.ContentProperty, vibbinding);
+            display.InvalidateVisual();
+            cdisplay.InvalidateVisual();
+        }
+
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            display.Resize(new Size(grid.ActualWidth, grid.ActualHeight));
+            display.InvalidateVisual();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            display.Resize(new Size(grid.ActualWidth, grid.ActualHeight));
+            clogic=new CanvasLogic(canvas.ActualWidth, canvas.ActualHeight);
+            cdisplay.SetupModel(clogic);
+            display.InvalidateVisual();
+            cdisplay.InvalidateVisual();
             //dt2 = new DispatcherTimer();
             //dt2.Interval=TimeSpan.FromMilliseconds(600);
             //dt2.Tick += async(sender, eargs) =>
@@ -45,9 +77,9 @@ namespace DomeTD
             //        logic.MoveEnemy(e);
             //        display.InvalidateVisual();
             //    }
-                    
-               
-                
+
+
+
             //};
             //time = TimeSpan.FromSeconds(5);
             //dt = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
@@ -61,41 +93,13 @@ namespace DomeTD
             //    time = time.Add(TimeSpan.FromSeconds(-1));
             //}, Application.Current.Dispatcher);
             //dt.Start();
-            display.SetupModel(logic);
-            cdisplay.SetupModel(clogic);
-            controller = new GameController(logic);
-            Binding dirtbinding=new Binding("Dirt");
-            dirtbinding.Source = logic.Inventory;
-            dirt.SetBinding(Label.ContentProperty, dirtbinding);
-
-            Binding metalbinding = new Binding("Metal");
-            metalbinding.Source = logic.Inventory;
-            metal.SetBinding(Label.ContentProperty, metalbinding);
-
-            Binding vibbinding = new Binding("Vibranium");
-            vibbinding.Source = logic.Inventory;
-            vibranium.SetBinding(Label.ContentProperty, vibbinding);
-
-        }
-
-        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            display.Resize(new Size(grid.ActualWidth, grid.ActualHeight));
-            display.InvalidateVisual();
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            display.Resize(new Size(grid.ActualWidth, grid.ActualHeight));
-            display.InvalidateVisual();
-           cdisplay.InvalidateVisual();
-
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             controller.KeyPressed(e.Key);
             display.InvalidateVisual();
+            cdisplay.InvalidateVisual();
         }
          
     }

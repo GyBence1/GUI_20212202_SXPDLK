@@ -12,7 +12,6 @@ namespace DomeTD.Logic
     {
         void Move(Directions direction);
         void Dig(Directions direction);
-        void Shoot();
         Inventory Inventory{get;set;}
     }
 }

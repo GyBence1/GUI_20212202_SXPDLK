@@ -13,7 +13,6 @@ namespace DomeTD.Logic
     public interface IGameModel
     {
         IGameItem[,] GameMatrix { get; set; }
-        List<Enemy> Enemies { get; set; }
     }
 
     public class DomeLogic:IGameModel, IGameControl
@@ -21,7 +20,6 @@ namespace DomeTD.Logic
         public MainCharacter Hero { get; set; }
         public Dome Dome { get; set; }
         public Inventory Inventory { get; set; }
-        public List<Enemy> Enemies { get; set; }
         public int AttackDamage { get; set; }
         public enum Directions
         {
@@ -55,11 +53,7 @@ namespace DomeTD.Logic
                     GameMatrix[i, j] = lvlConvert(lines[i][j]);
                 }
             }
-            Enemies=new List<Enemy>();
-            for (int i = 0; i < 1; i++)
-            {
-                Enemies.Add(Spawn());
-            }
+            
         }
       
         public IGameItem lvlConvert(char v)
@@ -242,55 +236,6 @@ namespace DomeTD.Logic
                 default:
                     break;
             }
-        }
-        public void MoveEnemy(Enemy e)
-        {
-            int i = 9;
-            if (GameMatrix[i, e.J-1].Type!="Dome")
-            {
-                if (GameMatrix[i, e.J-1].Type=="Laser")
-                {
-                    e.Health-=AttackDamage;
-                    if (e.Health<=0)
-                    {
-                        e=null;
-                    }
-                    else
-                    {
-                        GameMatrix[i, e.J-1]= e;
-                        e.J--;
-                        GameMatrix[i, e.J+1]=new BGround();
-                    }
-                }
-                GameMatrix[i, e.J-1]= e;
-                e.J--;
-                GameMatrix[i, e.J+1]=new BGround();
-
-            }  
-        }
-        public Enemy Spawn()
-        {
-            int i = 9;
-            int j = GameMatrix.GetLength(1)-1;
-            Enemy e = new Enemy();
-            e.J=j;
-            GameMatrix[i, j]=e;
-            return e;
-        }
-
-        public async void Shoot()
-        {
-            Laser l=new Laser();
-            l.J=1;
-            int i = 9;
-            while(GameMatrix[i, l.J+1].Type!="Enemy"&&l.J<=GameMatrix.GetLength(1)-1)
-            {
-                await Task.Delay(100);
-                GameMatrix[i, l.J+1]= l;
-                l.J++;
-                GameMatrix[i, l.J-1]=new BGround();
-            }
-            l=null;
         }
     }
     }

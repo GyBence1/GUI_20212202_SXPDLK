@@ -15,12 +15,22 @@ namespace DomeTD.Logic
     }
     public class CanvasLogic : ICanvasItem
     {
+        private double areaHeight;
+        private double areaWidth;
         public Dome Dome { get; set; }
         public List<Laser> Lasers { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public List<Enemy> Enemies { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public CanvasLogic()
+        public List<Enemy> Enemies { get; set; }
+        public CanvasLogic(double areaWidth,double areaHeight)
         {
-            Dome=new Dome();
+            this.areaWidth=areaWidth;
+            this.areaHeight=areaHeight;
+            Dome=new Dome(0,areaHeight);
+            Enemies=new List<Enemy>();
+            Enemies.Add(new Enemy(areaWidth, areaHeight));
+        }
+        public void NewEnemy()
+        {
+            Enemies.Add(new Enemy(areaWidth,areaHeight));
         }
     }
 }

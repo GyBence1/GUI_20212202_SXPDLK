@@ -4,24 +4,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Media;
 
 namespace DomeTD.Models
 {
-    public class Enemy : IGameItem
+    public class Enemy : CanvasItem
     {
-        private string type;
-
-        public string Type
-        {
-            get { return "Enemy"; }
-            set { type = value; }
-        }
 
         private double health;
 
         public double Health
         {
-            get { return 101; }
+            get { return 100; }
             set { health = value; ; }
         }
 
@@ -32,6 +27,14 @@ namespace DomeTD.Models
             get { return attackDamage; }
             set { attackDamage = value; ; }
         }
+        public double posX { get; set; }
+        public double posY { get; set; }
+
+        public Enemy(double posX, double posY)
+        {
+            this.posX=posX;
+            this.posY=posY;
+        }
 
         private int speed;
 
@@ -41,14 +44,12 @@ namespace DomeTD.Models
             set { speed = value; ; }
         }
 
-        private int j;
-
-        public int J
+        public override Geometry Area
         {
-            get { return j; }
-            set { j = value; }
+            get
+            {
+                return new RectangleGeometry(new Rect(posX-60, posY-50, 50, 50));
+            }
         }
-
-
     }
 }

@@ -17,11 +17,20 @@ namespace DomeTD.Models
             get { return 100; }
             set { health = value; }
         }
+        public double canvaswidth { get; set; }
+        public double canvasheight { get; set; }
+
+        public Dome(double canvaswidth, double canvasheight)
+        {
+            this.canvaswidth=canvaswidth;
+            this.canvasheight=canvasheight;
+        }
+
         public override Geometry Area
         {
             get
             {
-                return new RectangleGeometry(new Rect(0,0, 50, 50));
+                return new RectangleGeometry(new Rect(0,canvasheight-163,200,200));
             }
         }
     }
