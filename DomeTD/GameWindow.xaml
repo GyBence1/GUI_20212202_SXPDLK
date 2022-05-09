@@ -16,8 +16,8 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Canvas Grid.Row="0" x:Name="canvas">
-            <Label FontFamily="/Fonts/#Bubblegum" ContentStringFormat="Dirt: {0}" x:Name="dirt" HorizontalAlignment="Right" Canvas.Left="780" Canvas.Top="5"/>
-            <Label FontFamily="/Fonts/#Bubblegum" ContentStringFormat="Remaining time: {0}" x:Name="timer" Canvas.Left="619" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <Label FontFamily="/Fonts/#Bubblegum" ContentStringFormat="Dirt: {0}" x:Name="dirt" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <Label FontFamily="/Fonts/#Bubblegum" ContentStringFormat="Remaining time: {0}" x:Name="timer" Canvas.Left="746" HorizontalAlignment="Left" VerticalAlignment="Center"/>
             <Label FontFamily="/Fonts/#Bubblegum" ContentStringFormat="Metal: {0}" x:Name="metal" Canvas.Left="482" Canvas.Top="-5"/>
             <Label FontFamily="/Fonts/#Bubblegum" ContentStringFormat="Vibranium: {0}" x:Name="vibranium" HorizontalAlignment="Left" Canvas.Left="234" VerticalAlignment="Center"/>
             <renderer:CanvasDisplay x:Name="cdisplay"/>
@@ -26,5 +26,5 @@
             <renderer:Display x:Name="display"/>
         </Grid>
     </Grid>
-    
+
 </Window>

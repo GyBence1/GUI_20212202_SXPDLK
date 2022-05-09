@@ -16,7 +16,7 @@ namespace DomeTD.Models
 
         public double Health
         {
-            get { return 100; }
+            get { return health; }
             set { health = value; ; }
         }
 
@@ -34,6 +34,8 @@ namespace DomeTD.Models
         {
             this.posX=posX;
             this.posY=posY;
+            AttackDamage=10;
+            Health=100;
         }
 
         private int speed;

@@ -24,12 +24,20 @@ namespace DomeTD.Renderer
             base.OnRender(drawingContext);
             ImageBrush domebrush = new ImageBrush(new BitmapImage(new Uri("Images/dome1.bmp", UriKind.RelativeOrAbsolute)));
             ImageBrush enemybrush = new ImageBrush(new BitmapImage(new Uri("Images/enemy.bmp", UriKind.RelativeOrAbsolute)));
+            ImageBrush laserbrush = new ImageBrush(new BitmapImage(new Uri("Images/laser.bmp", UriKind.RelativeOrAbsolute)));
             if (model!=null)
             {
                 drawingContext.DrawGeometry(domebrush, null, model.Dome.Area);
+                foreach (var item in model.Lasers)
+                {
+                    drawingContext.DrawGeometry(laserbrush, null, item.Area);
+                }
                 foreach (var item in model.Enemies)
                 {
-                    drawingContext.DrawGeometry(enemybrush, null, item.Area);
+                    if (item.Health>0)
+                    {
+                        drawingContext.DrawGeometry(enemybrush, null, item.Area);
+                    }
                 }
             }
         }

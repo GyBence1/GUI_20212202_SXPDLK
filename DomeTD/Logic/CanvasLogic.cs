@@ -18,7 +18,7 @@ namespace DomeTD.Logic
         private double areaHeight;
         private double areaWidth;
         public Dome Dome { get; set; }
-        public List<Laser> Lasers { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public List<Laser> Lasers { get; set; }
         public List<Enemy> Enemies { get; set; }
         public CanvasLogic(double areaWidth,double areaHeight)
         {
@@ -26,11 +26,68 @@ namespace DomeTD.Logic
             this.areaHeight=areaHeight;
             Dome=new Dome(0,areaHeight);
             Enemies=new List<Enemy>();
-            Enemies.Add(new Enemy(areaWidth, areaHeight));
+            Lasers=new List<Laser>();
+            
         }
         public void NewEnemy()
         {
             Enemies.Add(new Enemy(areaWidth,areaHeight));
+        }
+        public async void SpawnEnemies()
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                await Task.Delay(1000);
+                NewEnemy();
+            }
+        }
+        public void MoveEnemy()
+        {
+            for (int i = 0; i < Enemies.Count; i++)
+            {
+                if (!Enemies[i].IsCollision(Dome))
+                {
+                    Enemies[i].posX-=10;
+                }
+                else
+                {
+                    Enemies.Remove(Enemies[i]);
+                }
+            }
+        }
+        public void AddLaser()
+        {
+            if (Enemies.Count>0)
+            {
+                Lasers.Add(new Laser(Dome.Area.Bounds.Right, Dome.Area.Bounds.Bottom-(Dome.Area.Bounds.Size.Height/2)+15));
+            }
+        }
+        public void Shoot()
+        {
+            if (Enemies.Count>0)
+            {
+                for (int i = 0; i < Lasers.Count; i++)
+                {
+                    Lasers[i].posX+=Lasers[i].AttackSpeed;
+                    for (int j = 0; j < Enemies.Count; j++)
+                    {
+                        if (Lasers[i].IsCollision(Enemies[j]))
+                        {
+                            if (Enemies[j].Health>0)
+                            {
+                                Enemies[j].Health-=Lasers[i].AttackDamage*10;
+                                ;
+                            }
+                            else
+                            {
+                                Enemies.RemoveAt(j);
+                            }
+                            Lasers.RemoveAt(i);
+                        }
+                    }
+                }
+            }
+           
         }
     }
 }

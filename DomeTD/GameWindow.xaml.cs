@@ -29,12 +29,13 @@ namespace DomeTD
         DispatcherTimer dt;
         DispatcherTimer dt2;
         DispatcherTimer dt3;
+        DispatcherTimer dt4;
         TimeSpan time;
         DomeLogic logic = new DomeLogic();
         CanvasLogic clogic;
         public GameWindow()
         {
-           
+
             InitializeComponent();
             cdisplay.InvalidateVisual();
             controller = new GameController(logic);
@@ -52,7 +53,8 @@ namespace DomeTD
             vibranium.SetBinding(Label.ContentProperty, vibbinding);
             display.InvalidateVisual();
             cdisplay.InvalidateVisual();
-        }
+            
+            }
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
@@ -67,33 +69,57 @@ namespace DomeTD
             cdisplay.SetupModel(clogic);
             display.InvalidateVisual();
             cdisplay.InvalidateVisual();
-            //dt2 = new DispatcherTimer();
-            //dt2.Interval=TimeSpan.FromMilliseconds(600);
-            //dt2.Tick += async(sender, eargs) =>
-            //{
-            //    foreach (var e in logic.Enemies)
-            //    {
-            //        await Task.Delay(2000);
-            //        logic.MoveEnemy(e);
-            //        display.InvalidateVisual();
-            //    }
-
-
-
-            //};
-            //time = TimeSpan.FromSeconds(5);
-            //dt = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
-            //{
-            //    timer.Content = time.ToString("c");
-            //    if (time == TimeSpan.Zero)
-            //    {
-            //        dt.Stop();
-            //        dt2.Start();
-            //    };
-            //    time = time.Add(TimeSpan.FromSeconds(-1));
-            //}, Application.Current.Dispatcher);
-            //dt.Start();
+            dt4=new DispatcherTimer();
+            dt4.Interval=TimeSpan.FromSeconds(3);
+            dt3=new DispatcherTimer();
+            dt3.Interval=TimeSpan.FromMilliseconds(1);
+            dt4.Tick +=(sender, eargs) =>
+            {
+                    clogic.AddLaser();
+                    dt3.Tick +=(sender, eargs) =>
+                    {
+                        if (clogic.Enemies.Count>0)
+                        {
+                            clogic.Shoot();
+                            cdisplay.InvalidateVisual();
+                        }
+                        else
+                        {
+                            clogic.Lasers.Clear();
+                            cdisplay.InvalidateVisual();
+                            dt4.Stop();
+                            dt3.Stop();
+                        }
+                    };
+                    cdisplay.InvalidateVisual();
+            };
+            dt2 = new DispatcherTimer();
+            dt2.Interval=TimeSpan.FromMilliseconds(200);
+            dt2.Tick +=(sender, eargs) =>
+            {
+                for (int i = 0; i < clogic.Enemies.Count; i++)
+                {
+                    clogic.MoveEnemy();
+                }
+            };
+            time = TimeSpan.FromSeconds(5);
+            dt = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
+            {
+                timer.Content = time.ToString("c");
+                if (time == TimeSpan.Zero)
+                {
+                    dt.Stop();
+                    dt2.Start();
+                    clogic.NewEnemy();
+                    dt3.Start();
+                    dt4.Start();
+                };
+                time = time.Add(TimeSpan.FromSeconds(-1));
+            }, Application.Current.Dispatcher);
+            dt.Start();
         }
+
+       
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
