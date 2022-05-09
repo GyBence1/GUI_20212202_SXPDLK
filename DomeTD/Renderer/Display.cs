@@ -69,10 +69,10 @@ namespace DomeTD.Renderer
                                     (new BitmapImage(new Uri("Images/character.bmp", UriKind.RelativeOrAbsolute)));
                                 break;
 
-                            case Enemy:
-                                brush = new ImageBrush
-                                    (new BitmapImage(new Uri("Images/enemy.bmp", UriKind.RelativeOrAbsolute)));
-                                break;
+                            //case Enemy:
+                            //    brush = new ImageBrush
+                            //        (new BitmapImage(new Uri("Images/enemy.bmp", UriKind.RelativeOrAbsolute)));
+                            //    break;
                             case Laser:
                                 brush = new ImageBrush
                                     (new BitmapImage(new Uri("Images/laser.bmp", UriKind.RelativeOrAbsolute)));
@@ -81,21 +81,21 @@ namespace DomeTD.Renderer
                                 domebrush = new ImageBrush
                                     (new BitmapImage(new Uri("Images/dome1.bmp", UriKind.RelativeOrAbsolute)));
                                 break;
-                            case BGround:
-                                bgbrush = Brushes.Transparent;
-                                break;
+                            //case BGround:
+                            //    bgbrush = Brushes.Transparent;
+                            //    break;
                             default:
                                 break;
                         }
                         drawingContext.DrawRectangle(brush
                                     , new Pen(Brushes.Black, 0),
                                     new Rect(j * rectWidth, i * rectHeight, rectWidth, rectHeight));
-                        drawingContext.DrawRectangle(bgbrush
-                                   , new Pen(Brushes.Black, 0),
-                                   new Rect(j * rectWidth, i * rectHeight, rectWidth, rectHeight));
-                        drawingContext.DrawRectangle(domebrush
-                                  , new Pen(Brushes.Black, 0),
-                                  new Rect(j * rectWidth, i * rectHeight-200, 300,300));
+                        //drawingContext.DrawRectangle(bgbrush
+                        //           , new Pen(Brushes.Black, 0),
+                        //           new Rect(j * rectWidth, i * rectHeight, rectWidth, rectHeight));
+                        //drawingContext.DrawRectangle(domebrush
+                        //          , new Pen(Brushes.Black, 0),
+                        //          new Rect(j * rectWidth, i * rectHeight-200, 300,300));
                        
                     }
 

@@ -30,37 +30,39 @@ namespace DomeTD
         DispatcherTimer dt3;
         TimeSpan time;
         DomeLogic logic = new DomeLogic();
+        CanvasLogic clogic = new CanvasLogic();
         public GameWindow()
         {
            
             InitializeComponent();
-            dt2 = new DispatcherTimer();
-            dt2.Interval=TimeSpan.FromMilliseconds(600);
-            dt2.Tick += async(sender, eargs) =>
-            {
-                foreach (var e in logic.Enemies)
-                {
-                    await Task.Delay(2000);
-                    logic.MoveEnemy(e);
-                    display.InvalidateVisual();
-                }
+            //dt2 = new DispatcherTimer();
+            //dt2.Interval=TimeSpan.FromMilliseconds(600);
+            //dt2.Tick += async(sender, eargs) =>
+            //{
+            //    foreach (var e in logic.Enemies)
+            //    {
+            //        await Task.Delay(2000);
+            //        logic.MoveEnemy(e);
+            //        display.InvalidateVisual();
+            //    }
                     
                
                 
-            };
-            time = TimeSpan.FromSeconds(5);
-            dt = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
-            {
-                timer.Content = time.ToString("c");
-                if (time == TimeSpan.Zero)
-                {
-                    dt.Stop();
-                    dt2.Start();
-                };
-                time = time.Add(TimeSpan.FromSeconds(-1));
-            }, Application.Current.Dispatcher);
-            dt.Start();
+            //};
+            //time = TimeSpan.FromSeconds(5);
+            //dt = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
+            //{
+            //    timer.Content = time.ToString("c");
+            //    if (time == TimeSpan.Zero)
+            //    {
+            //        dt.Stop();
+            //        dt2.Start();
+            //    };
+            //    time = time.Add(TimeSpan.FromSeconds(-1));
+            //}, Application.Current.Dispatcher);
+            //dt.Start();
             display.SetupModel(logic);
+            cdisplay.SetupModel(clogic);
             controller = new GameController(logic);
             Binding dirtbinding=new Binding("Dirt");
             dirtbinding.Source = logic.Inventory;
@@ -86,7 +88,7 @@ namespace DomeTD
         {
             display.Resize(new Size(grid.ActualWidth, grid.ActualHeight));
             display.InvalidateVisual();
-           
+           cdisplay.InvalidateVisual();
 
         }
 

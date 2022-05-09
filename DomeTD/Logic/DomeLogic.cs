@@ -36,7 +36,6 @@ namespace DomeTD.Logic
             Inventory = new Inventory();
             levels = new Queue<string>();
             Hero = new MainCharacter();
-            Dome=new Dome();
             var lvls = Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "Levels"),
                 "*.lvl");
             foreach (var item in lvls)
@@ -48,7 +47,7 @@ namespace DomeTD.Logic
         private void LoadNext(string path)
         {
             string[] lines = File.ReadAllLines(path);
-            GameMatrix = new IGameItem[30,50];
+            GameMatrix = new IGameItem[19,50];
             for (int i = 0; i < GameMatrix.GetLength(0); i++)
             {
                 for (int j = 0; j < GameMatrix.GetLength(1); j++)
@@ -72,10 +71,10 @@ namespace DomeTD.Logic
                 case 'f': return new Floor();
                 case 'm': return new Metal();
                 case 'v': return new Vibranium();
-                case 'k': return new BGround();
+                //case 'k': return new BGround();
                 case 'c': return Hero;
-                case 'e': return new Enemy();
-                case 'b': return Dome;
+                //case 'e': return new Enemy();
+                //case 'b': return Dome;
                 default: return null;
             }
         }
