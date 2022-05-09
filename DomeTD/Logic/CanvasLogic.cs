@@ -122,11 +122,6 @@ namespace DomeTD.Logic
         {
             if (Enemies.Count>0)
             {
-                //for (int i = 0; i < Lasers.Count; i++)
-                //{
-                //    Lasers[i].posX+=10*Lasers[i].AttackSpeed;
-
-                //}
                 foreach (var item in Lasers.ToList())
                 {
                     item.posX += 10 * item.AttackSpeed;
@@ -137,15 +132,20 @@ namespace DomeTD.Logic
                             if (asd.Health>0)
                             {
                                 asd.Health -= currentDMG * 10;
+                                Lasers.Remove(item);
                             }
                             else
                             {
                                 Enemies.Remove(asd);
                             }
-                            Lasers.Remove(item);
+                            
                         }
                     }
                 }
+            }
+            else
+            {
+                Enemies.Clear();
             }
         }
     }
