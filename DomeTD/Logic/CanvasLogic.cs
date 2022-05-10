@@ -89,7 +89,7 @@ namespace DomeTD.Logic
                 {
                     Enemies.Remove(Enemies[i]);
                     EnemiesKilled++;
-                    Dome.Health-=10;
+                    Dome.Health-=100;
                     if (Dome.Health<=0)
                     {
                         GameOver?.Invoke(this, null);

@@ -13,7 +13,7 @@
         </StackPanel.Background>
         <Label Content="How to play" HorizontalAlignment="Center" FontSize="65" Foreground="#FFE25151"/>
         <Label Content="-WASD to move" HorizontalAlignment="Center" FontSize="35" Foreground="#FFE25151"/>
-        <Label Content="-SPACE to interact" HorizontalAlignment="Center" FontSize="35" Foreground="#FFE25151"/>
+        <Label Content="-ARROWS to DIG" HorizontalAlignment="Center" FontSize="35" Foreground="#FFE25151"/>
         <Label Content="-Click on buttons" HorizontalAlignment="Center" FontSize="35" Foreground="#FFE25151"/>
         <Label Content="-Survive" HorizontalAlignment="Center" FontSize="35" Foreground="#FFE25151"/>
         <Label Content="-Have FUN!" HorizontalAlignment="Center" FontSize="35" Foreground="#FFE25151"/>

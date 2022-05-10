@@ -108,7 +108,7 @@ namespace DomeTD
             display.InvalidateVisual();
             cdisplay.InvalidateVisual();
             dt4=new DispatcherTimer();
-            dt4.Interval=TimeSpan.FromSeconds(15);
+            dt4.Interval=TimeSpan.FromSeconds(5);
             dt3=new DispatcherTimer();
             dt3.Interval=TimeSpan.FromMilliseconds(10);
             dt4.Tick +=(sender, eargs) =>
@@ -125,7 +125,7 @@ namespace DomeTD
                     clogic.Lasers.Clear();
                     dt3.Stop();
                     dt4.Stop();
-                    time=TimeSpan.FromSeconds(5);
+                    time=TimeSpan.FromSeconds(15);
                     dt.Start();
                 }
             };
@@ -138,7 +138,7 @@ namespace DomeTD
                     cdisplay.InvalidateVisual();
                 
             };
-            time = TimeSpan.FromSeconds(5);
+            time = TimeSpan.FromSeconds(15);
             dt = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
             {
                 timer.Content = time.ToString("c");
