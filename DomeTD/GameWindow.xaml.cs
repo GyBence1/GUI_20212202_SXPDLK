@@ -73,9 +73,25 @@ namespace DomeTD
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            double center= (canvas.ActualWidth - timer.ActualWidth) / 2;
+            Canvas.SetLeft(metal, dirt.ActualWidth+10);
+            Canvas.SetLeft(timer, center);
+            Canvas.SetLeft(wpupgrade, canvas.ActualWidth-wpupgrade.ActualWidth);
+            Canvas.SetLeft(drillupgrade, canvas.ActualWidth-wpupgrade.ActualWidth-drillupgrade.ActualWidth-15);
+            Canvas.SetLeft(vibranium, dirt.ActualWidth+10+metal.ActualWidth+10);
+            Canvas.SetLeft(hpbar,5);
+            Canvas.SetTop(weapon, dirt.ActualHeight+20);
+            Canvas.SetTop(drill, dirt.ActualHeight+20+weapon.ActualHeight+20);
+            Canvas.SetTop(hp, dirt.ActualHeight+20+weapon.ActualHeight+20+hp.ActualHeight+50);
+            Canvas.SetTop(hpbar, dirt.ActualHeight+20+weapon.ActualHeight+20+hp.ActualHeight+50+hpbar.ActualHeight+10);
             display.Resize(new Size(grid.ActualWidth, grid.ActualHeight));
             clogic=new CanvasLogic(canvas.ActualWidth, canvas.ActualHeight);
             clogic.GameOver+=Clogic_GameOver;
+
+            Binding hpbinding = new Binding("Health");
+            hpbinding.Source = clogic.Dome;
+            hpbar.SetBinding(ProgressBar.ValueProperty, hpbinding);
+
             Binding attackpower = new Binding("CurrentDMG");
             attackpower.Source = clogic;
             weapon.SetBinding(Label.ContentProperty, attackpower);
@@ -92,9 +108,9 @@ namespace DomeTD
             display.InvalidateVisual();
             cdisplay.InvalidateVisual();
             dt4=new DispatcherTimer();
-            dt4.Interval=TimeSpan.FromSeconds(3);
+            dt4.Interval=TimeSpan.FromSeconds(15);
             dt3=new DispatcherTimer();
-            dt3.Interval=TimeSpan.FromMilliseconds(100);
+            dt3.Interval=TimeSpan.FromMilliseconds(10);
             dt4.Tick +=(sender, eargs) =>
             {
                 clogic.AddLaser();
@@ -114,14 +130,13 @@ namespace DomeTD
                 }
             };
             dt2 = new DispatcherTimer();
-            dt2.Interval=TimeSpan.FromMilliseconds(300);
+            dt2.Interval=TimeSpan.FromMilliseconds(20);
             dt2.Tick +=(sender, eargs) =>
             {
-                for (int i = 0; i < clogic.Enemies.Count; i++)
-                {
+                
                     clogic.MoveEnemy();
                     cdisplay.InvalidateVisual();
-                }
+                
             };
             time = TimeSpan.FromSeconds(5);
             dt = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
@@ -141,9 +156,10 @@ namespace DomeTD
 
         private void Clogic_GameOver(object? sender, EventArgs e)
         {
-            var result = MessageBox.Show("Game Over");
+            var result = MessageBox.Show($"Game Over\n Number of enemies killed {clogic.EnemiesKilled}");
             if (result == MessageBoxResult.OK)
             {
+                
                 new MainWindow().Show();
                 this.Close();
             }

@@ -18,6 +18,7 @@ namespace DomeTD.Logic
     {
         private double areaHeight;
         private double areaWidth;
+        public int EnemiesKilled { get; set; }
         public event EventHandler GameOver;
         public Dome Dome { get; set; }
         public List<Laser> Lasers { get; set; }
@@ -50,6 +51,7 @@ namespace DomeTD.Logic
             weaponUpgradeCost = 1;
             difficulty = 1;
             Dome.Health=100;
+            EnemiesKilled=0;
         }
         public event PropertyChangedEventHandler? PropertyChanged;
         private void OnPropertyChanged(string info)
@@ -81,11 +83,12 @@ namespace DomeTD.Logic
             {
                 if (!Enemies[i].IsCollision(Dome))
                 {
-                    Enemies[i].posX -= 10;
+                    Enemies[i].posX -= 1;
                 }
                 else
                 {
                     Enemies.Remove(Enemies[i]);
+                    EnemiesKilled++;
                     Dome.Health-=10;
                     if (Dome.Health<=0)
                     {
@@ -108,7 +111,7 @@ namespace DomeTD.Logic
             {
                 foreach (var item in Lasers.ToList())
                 {
-                    item.posX += 10 * item.AttackSpeed;
+                    item.posX += 1;
                     foreach (var asd in Enemies.ToList())
                     {
                         if (item.IsCollision(asd))
@@ -121,6 +124,7 @@ namespace DomeTD.Logic
                             else
                             {
                                 Enemies.Remove(asd);
+                                EnemiesKilled++;
                             }
                             
                         }
@@ -130,6 +134,7 @@ namespace DomeTD.Logic
             else
             {
                 Enemies.Clear();
+                Lasers.Clear();
             }
         }
     }
