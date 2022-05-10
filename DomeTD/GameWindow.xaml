@@ -16,15 +16,15 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Canvas Grid.Row="0" x:Name="canvas">
-            <Label FontFamily="/Fonts/#Bubblegum" ContentStringFormat="Dirt: {0}" x:Name="dirt" HorizontalAlignment="Left"/>
+            <Label FontFamily="/Fonts/#Bubblegum" ContentStringFormat="Dirt: {0}" x:Name="dirt" HorizontalAlignment="Left" FontSize="15"/>
             <Label FontFamily="/Fonts/#Bubblegum" ContentStringFormat="Remaining time: {0}" x:Name="timer" FontSize="20"/>
-            <Label FontFamily="/Fonts/#Bubblegum" ContentStringFormat="Metal: {0}" x:Name="metal" />
-            <Label FontFamily="/Fonts/#Bubblegum" ContentStringFormat="Vibranium: {0}" x:Name="vibranium" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <Label FontFamily="/Fonts/#Bubblegum" ContentStringFormat="Weapon Power: {0}" x:Name="weapon"/>
-            <Label FontFamily="/Fonts/#Bubblegum" ContentStringFormat="Drill Power: {0}" x:Name="drill"  />
-            <Button FontFamily="/Fonts/#Bubblegum" ContentStringFormat="Weapon Upgrade Cost: {0} metal" x:Name="wpupgrade" Height="70" Width="200" Margin="5" Click="weaponbutton_Click" IsEnabled="True"/>
-            <Button FontFamily="/Fonts/#Bubblegum" ContentStringFormat="Drill Upgrade Cost: {0} metal" x:Name="drillupgrade" Height="70" Width="200" Margin="5" Click="drillbutton_Click"  />
-            <ProgressBar Maximum="100" x:Name="hpbar" Height="15" Width="100" Foreground="LightBlue"/>
+            <Label FontFamily="/Fonts/#Bubblegum" ContentStringFormat="Metal: {0}" x:Name="metal" FontSize="15" />
+            <Label FontFamily="/Fonts/#Bubblegum" ContentStringFormat="Vibranium: {0}" x:Name="vibranium" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15"/>
+            <Label FontFamily="/Fonts/#Bubblegum" ContentStringFormat="Weapon Power: {0}" x:Name="weapon" FontSize="15"/>
+            <Label FontFamily="/Fonts/#Bubblegum" ContentStringFormat="Drill Power: {0}" x:Name="drill"  FontSize="15"/>
+            <Button FontFamily="/Fonts/#Bubblegum"  x:Name="wpupgrade" Height="70" Width="300" Margin="5" Click="weaponbutton_Click" IsEnabled="True" FontSize="15" Background="Transparent" BorderThickness="0"/>
+            <Button FontFamily="/Fonts/#Bubblegum" x:Name="drillupgrade" Height="70" Width="300" Margin="5" Click="drillbutton_Click" FontSize="15" Background="Transparent" BorderThickness="0"/>
+            <ProgressBar Maximum="100" x:Name="hpbar" Height="15" Width="100" Foreground="LightBlue" FontSize="15"/>
             <Label FontFamily="/Fonts/#Bubblegum" ContentStringFormat="Dome Health: {0}" x:Name="hp"  FontSize="15"/>
             <renderer:CanvasDisplay x:Name="cdisplay"/>
         </Canvas>

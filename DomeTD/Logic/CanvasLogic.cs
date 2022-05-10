@@ -25,7 +25,13 @@ namespace DomeTD.Logic
         public List<Enemy> Enemies { get; set; }
         private double currentDMG;
         public int difficulty { get; set; }
+        private int weaponUpgradeCostinVib;
 
+        public int WeaponUpgradeCostinVib
+        {
+            get { return weaponUpgradeCostinVib; }
+            set { weaponUpgradeCostinVib = value; OnPropertyChanged("WeaponUpgradeCostinVib"); }
+        }
         public double CurrentDMG
         {
             get { return currentDMG; }
@@ -47,11 +53,12 @@ namespace DomeTD.Logic
             Dome=new Dome(0,areaHeight);
             Enemies=new List<Enemy>();
             Lasers=new List<Laser>();
-            currentDMG = 1;
+            currentDMG = 3;
             weaponUpgradeCost = 1;
             difficulty = 1;
             Dome.Health=100;
             EnemiesKilled=0;
+            weaponUpgradeCostinVib = 1;
         }
         public event PropertyChangedEventHandler? PropertyChanged;
         private void OnPropertyChanged(string info)
@@ -89,7 +96,7 @@ namespace DomeTD.Logic
                 {
                     Enemies.Remove(Enemies[i]);
                     EnemiesKilled++;
-                    Dome.Health-=100;
+                    Dome.Health-=10;
                     if (Dome.Health<=0)
                     {
                         GameOver?.Invoke(this, null);

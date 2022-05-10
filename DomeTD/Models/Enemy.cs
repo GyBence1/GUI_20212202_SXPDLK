@@ -35,7 +35,7 @@ namespace DomeTD.Models
             this.posX=posX;
             this.posY=posY;
             AttackDamage=10;
-            Health=100;
+            Health=120;
         }
 
         private int speed;

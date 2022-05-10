@@ -40,8 +40,9 @@ namespace DomeTD.Logic
             metal = new Metal();
             dirt = new Dirt();
             vibranium = new Vibranium();
-            Hero.DrillingPower = 3;
+            Hero.DrillingPower = 1;
             Hero.DrillingpowerupgCost = 1;
+            Hero.DrillingpowerupgCostInVib = 1;
             var lvls = Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "Levels"),
                 "*.lvl");
             foreach (var item in lvls)
@@ -73,10 +74,7 @@ namespace DomeTD.Logic
                 case 'f': return new Floor();
                 case 'm': return new Metal();
                 case 'v': return new Vibranium();
-                //case 'k': return new BGround();
                 case 'c': return Hero;
-                //case 'e': return new Enemy();
-                //case 'b': return Dome;
                 default: return null;
             }
         }
@@ -92,7 +90,7 @@ namespace DomeTD.Logic
                     }
                 }
             }
-            return new int[] { 2, 3 };
+            return new int[] { 1, 1 };
         }
 
         public void Move(Directions direction)
