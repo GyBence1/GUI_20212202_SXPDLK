@@ -35,6 +35,21 @@ namespace DomeTD.Models
             get { return speed; }
             set { speed = value; }
         }
+        private int drillingpowerupgCostInVib;
+
+        public int DrillingpowerupgCostInVib
+        {
+            get { return drillingpowerupgCostInVib; }
+            set { SetProperty(ref drillingpowerupgCostInVib, value); }
+        }
+
+        private int drillingpowerupgCost;
+
+        public int DrillingpowerupgCost
+        {
+            get { return drillingpowerupgCost; }
+            set { SetProperty( ref drillingpowerupgCost, value); }
+        }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         private void OnPropertyChanged(string info)

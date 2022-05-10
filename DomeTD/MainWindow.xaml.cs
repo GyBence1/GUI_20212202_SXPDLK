@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,26 +21,19 @@ namespace DomeTD
     /// </summary>
     public partial class MainWindow : Window
     {
-        private MediaPlayer player = new MediaPlayer();
+       
         public MainWindow()
         {
             InitializeComponent();
-            player.Open(new Uri(string.Format("{0}\\bgmusic.mp3", AppDomain.CurrentDomain.BaseDirectory)));
-            player.MediaEnded+=Player_MediaEnded;
-            player.Volume=0.20;
-            player.Play();
+            
 
         }
 
-        private void Player_MediaEnded(object? sender, EventArgs e)
-        {
-            player.Play();
-        }
+        
 
         private void NewGame_Click(object sender, RoutedEventArgs e)
         {
             new GameWindow().Show();
-            player.Stop();
             this.Close();
 
         }
@@ -47,7 +41,7 @@ namespace DomeTD
         private void HowTo_Click(object sender, RoutedEventArgs e)
         {
             new HowToWindow().Show();
-            player.Stop();
+           
             this.Close();
 
         }
