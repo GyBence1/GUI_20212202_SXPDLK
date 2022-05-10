@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DomeTD.Models
 {
-    public class MainCharacter : INotifyPropertyChanged, IGameItem
+    public class MainCharacter : ObservableObject, IGameItem
     {
         private string type;
 
