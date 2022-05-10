@@ -37,7 +37,13 @@ namespace DomeTD.Logic
             get { return weaponUpgradeCost; }
             set { weaponUpgradeCost = value; OnPropertyChanged("WeaponUpgradeCost"); }
         }
+        private int weaponUpgradeCostinVib;
 
+        public int WeaponUpgradeCostinVib
+        {
+            get { return weaponUpgradeCostinVib; }
+            set { weaponUpgradeCostinVib = value; OnPropertyChanged("WeaponUpgradeCostinVib"); }
+        }
         public CanvasLogic(double areaWidth,double areaHeight)
         {
             this.areaWidth=areaWidth;
@@ -48,6 +54,7 @@ namespace DomeTD.Logic
             currentDMG = 5;
             weaponUpgradeCost = 1;
             difficulty = 1;
+            weaponUpgradeCostinVib = 1;
         }
         public event PropertyChangedEventHandler? PropertyChanged;
         private void OnPropertyChanged(string info)
@@ -99,15 +106,26 @@ namespace DomeTD.Logic
             //    }
 
             //}
-            for (int i = 0; i < Enemies.Count; i++)
+            //for (int i = 0; i < Enemies.Count; i++)
+            //{
+            //    if (!Enemies[i].IsCollision(Dome))
+            //    {
+            //        Enemies[i].posX -= 10;
+            //    }
+            //    else
+            //    {
+            //        Enemies.Remove(Enemies[i]);
+            //    }
+            //}
+            foreach (var item in Enemies)
             {
-                if (!Enemies[i].IsCollision(Dome))
+                if (!item.IsCollision(Dome))
                 {
-                    Enemies[i].posX -= 10;
+                    item.posX -= 10;
                 }
                 else
                 {
-                    Enemies.Remove(Enemies[i]);
+                    Enemies.Remove(item);
                 }
             }
         }
@@ -129,7 +147,7 @@ namespace DomeTD.Logic
                 //}
                 foreach (var item in Lasers.ToList())
                 {
-                    item.posX += 10 * item.AttackSpeed;
+                    item.posX += 10;
                     foreach (var asd in Enemies.ToList())
                     {
                         if (item.IsCollision(asd))

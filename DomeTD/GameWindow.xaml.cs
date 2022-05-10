@@ -28,6 +28,8 @@ namespace DomeTD
         DispatcherTimer dt2;
         DispatcherTimer dt3;
         DispatcherTimer dt4;
+        DispatcherTimer dt5;
+        DispatcherTimer dt6;
         TimeSpan time;
         DomeLogic logic = new DomeLogic();
         CanvasLogic clogic;
@@ -60,6 +62,49 @@ namespace DomeTD
             drillupg.Source = logic.Hero;
             drillupgrade.SetBinding(Button.ContentProperty, drillupg);
 
+
+
+            dt6 = new DispatcherTimer();
+            dt6.Interval = TimeSpan.FromMilliseconds(100);
+            dt6.Tick += (sender, args) =>
+            {
+                if (logic.Hero.DrillingpowerupgCost > 5)
+                {
+                    Binding drillupginvib = new Binding("DrillingpowerupgCostInVib");
+                    drillupginvib.Source = logic.Hero;
+                    drillupgrade.ContentStringFormat = "Drill Upgrade Cost: {0} vibranium";
+                    drillupgrade.SetBinding(Button.ContentProperty, drillupginvib);
+                }
+                else
+                {
+                    Binding drillupg = new Binding("DrillingpowerupgCost");
+                    drillupg.Source = logic.Hero;
+                    drillupgrade.ContentStringFormat = "Drill Upgrade Cost: {0} metal";
+                    drillupgrade.SetBinding(Button.ContentProperty, drillupg);
+                }
+            };
+            dt6.Start();
+            //dt5.Tick += (sender, args) =>
+            //{
+            //    if (clogic.WeaponUpgradeCost > 5)
+            //    {
+            //        Binding wpupgvib = new Binding("WeaponUpgradeCostinVib");
+            //        wpupgvib.Source = clogic;
+            //        wpupgrade.ContentStringFormat = "Weapon Upgrade Cost: {0} vibranium";
+            //        wpupgrade.SetBinding(Button.ContentProperty, wpupgvib);
+            //    }
+            //    else
+            //    {
+            //        Binding wpupg = new Binding("WeaponUpgradeCost");
+            //        wpupg.Source = clogic;
+            //        wpupgrade.ContentStringFormat = "Weapon Upgrade Cost: {0} metal";
+            //        wpupgrade.SetBinding(Button.ContentProperty, wpupg);
+            //    }
+            //};
+            //dt5.Start();
+
+
+
             display.InvalidateVisual();
             cdisplay.InvalidateVisual();
             
@@ -80,9 +125,27 @@ namespace DomeTD
             attackpower.Source = clogic;
             weapon.SetBinding(Label.ContentProperty, attackpower);
 
-            Binding wpupg = new Binding("WeaponUpgradeCost");
-            wpupg.Source = clogic;
-            wpupgrade.SetBinding(Button.ContentProperty, wpupg);
+            dt5 = new DispatcherTimer();
+            dt5.Interval = TimeSpan.FromMilliseconds(100);
+            dt5.Tick += (sender, args) =>
+            {
+                if (clogic.WeaponUpgradeCost > 5)
+                {
+                    Binding wpupgvib = new Binding("WeaponUpgradeCostinVib");
+                    wpupgvib.Source = clogic;
+                    wpupgrade.ContentStringFormat = "Weapon Upgrade Cost: {0} vibranium";
+                    wpupgrade.SetBinding(Button.ContentProperty, wpupgvib);
+                }
+                else
+                {
+                    Binding wpupg = new Binding("WeaponUpgradeCost");
+                    wpupg.Source = clogic;
+                    wpupgrade.ContentStringFormat = "Weapon Upgrade Cost: {0} metal";
+                    wpupgrade.SetBinding(Button.ContentProperty, wpupg);
+                }
+            };
+            dt5.Start();
+            
 
             cdisplay.SetupModel(clogic);
             display.InvalidateVisual();
@@ -90,7 +153,7 @@ namespace DomeTD
             dt4=new DispatcherTimer();
             dt4.Interval=TimeSpan.FromSeconds(3);
             dt3=new DispatcherTimer();
-            dt3.Interval=TimeSpan.FromMilliseconds(100);
+            dt3.Interval=TimeSpan.FromMilliseconds(200);
             dt4.Tick +=(sender, eargs) =>
             {
                 clogic.AddLaser();
@@ -135,6 +198,9 @@ namespace DomeTD
                 time = time.Add(TimeSpan.FromSeconds(-1));
             }, Application.Current.Dispatcher);
         }
+
+       
+
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             controller.KeyPressed(e.Key);
@@ -144,28 +210,57 @@ namespace DomeTD
         }
 
         private void weaponbutton_Click(object sender, RoutedEventArgs e)
-        {
-            
-            if (logic.Inventory.Metal >= clogic.WeaponUpgradeCost)
+        { 
+            if (clogic.WeaponUpgradeCost > 5)
             {
+                if (logic.Inventory.Vibranium >= clogic.WeaponUpgradeCostinVib)
+                {
                     clogic.CurrentDMG++;
-                    logic.Inventory.Metal-= clogic.WeaponUpgradeCost;
+                    logic.Inventory.Vibranium -= clogic.WeaponUpgradeCostinVib;
+                    clogic.WeaponUpgradeCostinVib++;
+                    display.InvalidateVisual();
+                    cdisplay.InvalidateVisual();
+                }
+            }
+            else
+            {
+                if (logic.Inventory.Metal >= clogic.WeaponUpgradeCost)
+                {
+                    clogic.CurrentDMG++;
+                    logic.Inventory.Metal -= clogic.WeaponUpgradeCost;
                     clogic.WeaponUpgradeCost++;
                     display.InvalidateVisual();
                     cdisplay.InvalidateVisual();
+                }
             }
+           
         }
 
         private void drillbutton_Click(object sender, RoutedEventArgs e)
         {
-            if (logic.Inventory.Metal >= logic.Hero.DrillingpowerupgCost)
+            if (logic.Hero.DrillingpowerupgCost>5)
             {
-                logic.Hero.DrillingPower++;
-                logic.Inventory.Metal -= logic.Hero.DrillingpowerupgCost;
-                logic.Hero.DrillingpowerupgCost++;
-                display.InvalidateVisual();
-                cdisplay.InvalidateVisual();
+                if (logic.Inventory.Vibranium >= logic.Hero.DrillingpowerupgCostInVib)
+                {
+                    logic.Hero.DrillingPower++;
+                    logic.Inventory.Vibranium -= logic.Hero.DrillingpowerupgCostInVib;
+                    logic.Hero.DrillingpowerupgCostInVib++;
+                    display.InvalidateVisual();
+                    cdisplay.InvalidateVisual();
+                }
             }
+            else
+            {
+                if (logic.Inventory.Metal >= logic.Hero.DrillingpowerupgCost)
+                {
+                    logic.Hero.DrillingPower++;
+                    logic.Inventory.Metal -= logic.Hero.DrillingpowerupgCost;
+                    logic.Hero.DrillingpowerupgCost++;
+                    display.InvalidateVisual();
+                    cdisplay.InvalidateVisual();
+                }
+            }    
+            
 
         }
     }

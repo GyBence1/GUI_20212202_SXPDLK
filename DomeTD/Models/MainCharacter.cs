@@ -39,6 +39,12 @@ namespace DomeTD.Models
             get { return drillingpowerupgCost; }
             set { SetProperty( ref drillingpowerupgCost, value); }
         }
+        private int drillingpowerupgCostInVib;
 
+        public int DrillingpowerupgCostInVib
+        {
+            get { return drillingpowerupgCostInVib; }
+            set { SetProperty(ref drillingpowerupgCostInVib, value); }
+        }
     }
 }
